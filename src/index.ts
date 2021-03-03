@@ -82,4 +82,3 @@ board.addBlock(0, 6, 1, 1)
 board.addBlock(4, 6, 1, 1)
 board.addBlock(6, 2, 1, 1)
 board.addBlock(7, 1, 1, 1)
-
