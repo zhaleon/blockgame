@@ -1,0 +1,26 @@
+
+    /*  */
+.discrete-physics .background {
+    fill: #EEEEEE;
+}
+.discrete-physics .wall {
+    fill: #333333;
+}
+.discrete-physics .grid {
+    stroke-width: 0.025;
+    stroke: rgba(0, 0, 0, 0.2);
+}
+
+.discrete-physics .block, .discrete-physics .robot {
+    stroke-width: 0.025;
+    stroke: rgba(0, 0, 0, 0.4);
+}
+
+.discrete-physics .block.one { fill: #0074D9; }
+.discrete-physics .block.two { fill: #7FDBFF; }
+.discrete-physics .block.three { fill: #39CCCC; }
+
+.discrete-physics .robot.one { fill: #FF4136; }
+.discrete-physics .robot.two { fill: #FF851B; }
+.discrete-physics .robot.three { fill: #FFDC00; }
+
