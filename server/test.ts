@@ -3,7 +3,7 @@ import {step} from "./main"
 
 import assert from "assert";
 
-const frame = {
+let frame = {
     width: 5,
     height: 5,
     players: {
@@ -21,5 +21,5 @@ const inputs =
         [{player: "a", action: "right"}],
     ]
 
-const newFrame = step(frame, inputs)
-assert(newFrame.players.a.y = 2)
+inputs.forEach(input => frame = step(frame, inputs))
+assert(frame.players.a.y = 2)
