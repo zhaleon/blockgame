@@ -1,9 +1,9 @@
 {
   "name": "blockgame",
   "scripts": {
-    "build": "webpack build --config client/webpack.prod.js",
-    "build:dev": "webpack build --config client/webpack.dev.js",
-    "dev": "webpack serve --config client/webpack.dev.js"
+    "build": "webpack build --mode production",
+    "build:dev": "webpack build",
+    "dev": "webpack serve"
   },
   "private": true,
   "dependencies": {

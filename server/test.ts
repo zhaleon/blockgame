@@ -4,15 +4,22 @@ import {step} from "./main"
 import assert from "assert";
 
 const frame = {
-    width: 8,
-    height: 8,
+    width: 5,
+    height: 5,
     players: [
         {name: "a", x: 0, y: 0}
     ],
     blocks: [
-        {x: 2, y: 2, width: 2, height: 2}
+        {x: 2, y: 2, w: 2, h: 2}
     ]
 }
-const inputs = [{player: "a", action: "down"}]
+
+const inputs =
+    [
+        [{player: "a", action: "down"}],
+        [{player: "a", action: "down"}],
+        [{player: "a", action: "right"}],
+    ]
+
 const newFrame = step(frame, inputs)
 assert(newFrame.players.a.y = 1)
