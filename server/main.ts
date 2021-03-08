@@ -121,6 +121,7 @@ function main() {
         {player: "elephant", action: "right"},
         {player: "elephant", action: "right"},
     ]
+    
     frame = step(frame, inputs)
     console.log(frame.blocks)
 }
