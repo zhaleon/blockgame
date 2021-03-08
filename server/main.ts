@@ -56,6 +56,8 @@ function moveBlocks(frame: any, player: any, dir: number) {
         if (done) break;
     }
 
+    if (reps == 1000) throw "inf loop :sadge:" 
+
     console.log("toMove", toMove, "\nlastBlock", lastBlock)
     if (!canMove(frame, lastBlock, dir)) toMove = [], movable = false;
     console.log("toMove", toMove, "\nlastBlock", lastBlock)
