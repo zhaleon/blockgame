@@ -6,9 +6,9 @@ import assert from "assert";
 const frame = {
     width: 5,
     height: 5,
-    players: [
-        {name: "a", x: 0, y: 0}
-    ],
+    players: {
+        a: {x: 0, y: 0}
+    },
     blocks: [
         {x: 2, y: 2, w: 2, h: 2}
     ]

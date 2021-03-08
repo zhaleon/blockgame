@@ -3,7 +3,8 @@
   "scripts": {
     "build": "webpack build --mode production",
     "build:dev": "webpack build",
-    "dev": "webpack serve"
+    "dev": "webpack serve",
+    "test": "ts-node-dev server/test.ts"
   },
   "private": true,
   "dependencies": {
