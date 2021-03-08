@@ -49,7 +49,7 @@ function addPlayers() {
     frame.players["elephant"] = {x: 0, y: 0, w: 1, h: 1};
     frame.players["greenpizza"] = {x: 0, y: 0, w: 1, h: 1};
 }
-function canMove(object: any, dir: number) {
+function canMove(frame: any, object: any, dir: number) {
     object.w = object.w ?? 1
     object.h = object.h ?? 1
     let ok = (dir < 2) ? object.w  == 1 : object.h == 1;
@@ -60,7 +60,7 @@ function canMove(object: any, dir: number) {
 }
 
 function moveBlocks(frame: any, player: any, dir: number) {
-    if (!canMove(frame.players[player], dir)) return;
+    if (!canMove(frame, frame.players[player], dir)) return;
 
     let lastBlock = frame.players[player] 
     let movable = true;
@@ -84,7 +84,7 @@ function moveBlocks(frame: any, player: any, dir: number) {
     }
 
     /* console.log("toMove", toMove, "\nlastBlock", lastBlock) */
-    if (!canMove(lastBlock, dir)) toMove = [], movable = false;
+    if (!canMove(frame, lastBlock, dir)) toMove = [], movable = false;
 
     if (movable) {
         frame.players[player].x += dx[dir]
