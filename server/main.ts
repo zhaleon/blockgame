@@ -50,7 +50,9 @@ function addPlayers() {
     frame.players["greenpizza"] = {x: 0, y: 0, w: 1, h: 1};
 }
 function canMove(object: any, dir: number) {
-    let ok = (dir < 2) ? object.w == 1 : object.h == 1;
+    object.w = object.w ?? 1
+    object.h = object.h ?? 1
+    let ok = (dir < 2) ? object.w  == 1 : object.h == 1;
     let ok_x = object.x + dx[dir] + object.w < frame.width && object.x + dx[dir] >= 0
     let ok_y = object.y + dy[dir] + object.h < frame.height && object.y + dy[dir] >= 0
 
@@ -81,7 +83,7 @@ function moveBlocks(frame: any, player: any, dir: number) {
         if (done) break;
     }
 
-    // console.log("toMove", toMove, "\nlastBlock" lastBlock)
+    /* console.log("toMove", toMove, "\nlastBlock", lastBlock) */
     if (!canMove(lastBlock, dir)) toMove = [], movable = false;
 
     if (movable) {
@@ -123,4 +125,4 @@ function main() {
     console.log(frame.blocks)
 }
 
-main();
+/* main(); */
