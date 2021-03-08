@@ -23,3 +23,4 @@ test('block pushed into wall', () => {
     expect(frame.players.a).toEqual({x: 3, y: 2});
     expect(frame.blocks).toContainEqual({x: 4, y: 2, w: 1, h: 1});
 });
+
