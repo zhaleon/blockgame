@@ -14,11 +14,6 @@ export function addBlock(x, y, w, h) {
     frame.blocks.push({x, y, w, h})
 }
 
-export function simulate(inputs) {
-    // inputs.forEach(input => frame = step(frame, input))
-
-    return frame;
-}
 
 export function input(...moves) {
     const fixed = moves.map(item => {
