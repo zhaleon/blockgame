@@ -10,7 +10,7 @@ const frame = {
         {name: "a", x: 0, y: 0}
     ],
     blocks: [
-        {x: 2, y: 2, w: 2, h: 2}
+        {x: 2, y: 2, width: 2, height: 2}
     ]
 }
 
