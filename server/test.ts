@@ -10,7 +10,7 @@ let frame = {
         a: {x: 0, y: 0}
     },
     blocks: [
-        {x: 2, y: 2, w: 2, h: 2}
+        {x: 2, y: 2, w: 1, h: 1}
     ]
 }
 
@@ -23,4 +23,4 @@ const inputs =
 
 inputs.forEach(input => frame = step(frame, input))
 
-assert(frame.players.a.y = 2)
+assert(frame.players.a.y == 2)
