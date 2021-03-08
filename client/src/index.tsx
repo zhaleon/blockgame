@@ -1,5 +1,8 @@
 import "./style.css"
-import SVG from '@graphery/svg';
+import {Board} from "./board";
+import {Component} from "react";
+// import React from "react";
+// import ReactDOM from "react-dom";
 
 // const svg = document.createElement('svg');
 // // document.body.appendChild(svg)
@@ -41,44 +44,55 @@ import SVG from '@graphery/svg';
 //     </g>
 //     </svg>`
 
-class Board {
-    private svg: SVGRootItem;
+var React = require('react');
+var ReactDOM = require('react-dom');
+let node = document.createElement('div');
+document.body.appendChild(node)
+const data: [number, number, number, number][] = [
+    [0, 2, 2, 2],
+    [1, 0, 3, 1],
+    [5, 0, 1, 2],
+    [2, 1, 1, 2],
+    [3, 3, 3, 3],
+    [7, 5, 1, 2],
+    [1, 7, 3, 1],
+    [0, 6, 1, 1],
+    [4, 6, 1, 1],
+    [6, 2, 1, 1],
+    [7, 1, 1, 1]
+]
 
-    constructor(width, height) {
-        this.svg = SVG().viewBox(-1, -1, width + 2, height + 2);
-        this.createBackground(width, height);
-        this.svg.attachTo(document.body);
-
-    }
-
-    createBackground(width, height) {
-        this.svg.add('rect').x(-1).y(-1).width(width + 2).height(height + 2).fill('#eee');
-        this.svg.add('rect').x(-1).y(-1).width(width + 2).height(1).fill('#333')
-        this.svg.add('rect').x(-1).y(-1).width(1).height(height + 2).fill('#333')
-        this.svg.add('rect').x(-1).y(height).width(width + 2).height(1).fill('#333')
-        this.svg.add('rect').x(width).y(-1).width(1).height(height + 2).fill('#333')
-        for (let i = 0; i < width; i++) {
-            this.svg.add('line').x1(-1).y1(i).x2(width + 1).y2(i).stroke_width(0.025).stroke("rgba(0,0,0,0.2)")
-        }
-        for (let i = 0; i < width; i++) {
-            this.svg.add('line').x1(i).y1(-1).x2(i).y2(height + 1).stroke_width(0.025).stroke("rgba(0,0,0,0.2)")
-        }
-    }
-
-    addBlock(x, y, width, height) {
-        this.svg.add('rect').x(x).y(y).width(width).height(height).fill("#0074D9").stroke_width(0.025).stroke("rgba(0,0,0,0.4)")
+class MyComponent extends Component {
+    render() {
+        return <Board width={8} height={8} data={data}/>
     }
 }
 
-const board = new Board(8, 8)
-board.addBlock(0, 2, 2, 2)
-board.addBlock(1, 0, 3, 1)
-board.addBlock(5, 0, 1, 2)
-board.addBlock(2, 1, 1, 2)
-board.addBlock(3, 3, 3, 3)
-board.addBlock(7, 5, 1, 2)
-board.addBlock(1, 7, 3, 1)
-board.addBlock(0, 6, 1, 1)
-board.addBlock(4, 6, 1, 1)
-board.addBlock(6, 2, 1, 1)
-board.addBlock(7, 1, 1, 1)
+
+ReactDOM.render(<MyComponent/>, node);
+
+// board.addBlock(0, 2, 2, 2)
+// board.addBlock(1, 0, 3, 1)
+// board.addBlock(5, 0, 1, 2)
+// board.addBlock(2, 1, 1, 2)
+// board.addBlock(3, 3, 3, 3)
+// board.addBlock(7, 5, 1, 2)
+// board.addBlock(1, 7, 3, 1)
+// board.addBlock(0, 6, 1, 1)
+// board.addBlock(4, 6, 1, 1)
+// board.addBlock(6, 2, 1, 1)
+// board.addBlock(7, 1, 1, 1)
+// moveBlock()
+//
+// function moveBlock() {
+//     anime({
+//         targets: '#div',
+//         y: 4,
+//         duration: function (target) {
+//             const x = anime.get(target, 'x')
+//             const y = anime.get(target, 'y')
+//
+//             return 800;
+//         }
+//     });
+// }
