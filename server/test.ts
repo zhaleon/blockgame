@@ -22,4 +22,5 @@ const inputs =
     ]
 
 inputs.forEach(input => frame = step(frame, input))
+
 assert(frame.players.a.y = 2)
