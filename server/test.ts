@@ -1,7 +1,7 @@
 //test.ts
 import {step} from "./main"
 
-import assert from "assert";
+import {strict} from "assert";
 
 let frame = {
     width: 5,
@@ -18,15 +18,16 @@ let frame = {
 
 const inputs =
     [
-        [{player: "a", action: "down"}],
-        [{player: "a", action: "down"}],
-        [{player: "a", action: "right"}],
-        [{player: "b", action: "up"}],
-        [{player: "b", action: "up"}],
-        [{player: "b", action: "left"}],
+        [{player: "a", action: "down"}, {player: "b", action: "up"}],
+        [{player: "a", action: "down"}, {player: "b", action: "up"}],
+        [{player: "a", action: "right"}, {player: "b", action: "left"}],
+        [{player: "a", action: "right"}, {player: "b", action: "left"}],
     ]
 
 
 inputs.forEach(input => frame = step(frame, input))
 
-assert(frame.players.a.y == 2)
+strict(frame.players.a.x == 1)
+strict(frame.players.a.y == 2)
+strict(frame.players.b.x == 3)
+strict(frame.players.b.y == 2)
