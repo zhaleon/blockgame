@@ -10,17 +10,6 @@ enum Direction {
     left = 3,
 }
 
-let frame = {
-    width: 8,
-    height: 8,
-    players: {
-    
-    },
-    blocks: [
-    
-    ],
-}
-
 function intersects(a: any, b: any, dir: number) {
     if (dir == 0) {
         return a.x == b.x && a.y + a.h == b.y      
@@ -33,28 +22,12 @@ function intersects(a: any, b: any, dir: number) {
     } else { console.log("what?") }
 } 
 
-function addBlocks() {
-    frame.blocks.push(new Block(1,0,3,1))
-    frame.blocks.push(new Block(2,1,1,2))
-    frame.blocks.push(new Block(5,0,1,2))
-    frame.blocks.push(new Block(3,3,3,3))
-    frame.blocks.push(new Block(0,6,1,1))
-    frame.blocks.push(new Block(1,7,3,1))
-    frame.blocks.push(new Block(7,5,1,2))
-    frame.blocks.push(new Block(6,2,1,1))
-    frame.blocks.push(new Block(7,1,1,1))
-    frame.blocks.push(new Block(0,2,2,2))
-}
-function addPlayers() {
-    frame.players["elephant"] = {x: 0, y: 0, w: 1, h: 1};
-    frame.players["greenpizza"] = {x: 0, y: 0, w: 1, h: 1};
-}
 function canMove(frame: any, object: any, dir: number) {
     object.w = object.w ?? 1
     object.h = object.h ?? 1
     let ok = (dir < 2) ? object.w  == 1 : object.h == 1;
-    let ok_x = object.x + dx[dir] + object.w < frame.width && object.x + dx[dir] >= 0
-    let ok_y = object.y + dy[dir] + object.h < frame.height && object.y + dy[dir] >= 0
+    let ok_x = object.x + dx[dir] + object.w <= frame.width && object.x + dx[dir] >= 0
+    let ok_y = object.y + dy[dir] + object.h <= frame.height && object.y + dy[dir] >= 0
 
     return ok && ok_x && ok_y
 }
@@ -83,8 +56,9 @@ function moveBlocks(frame: any, player: any, dir: number) {
         if (done) break;
     }
 
-    /* console.log("toMove", toMove, "\nlastBlock", lastBlock) */
+    console.log("toMove", toMove, "\nlastBlock", lastBlock)
     if (!canMove(frame, lastBlock, dir)) toMove = [], movable = false;
+    console.log("toMove", toMove, "\nlastBlock", lastBlock)
 
     if (movable) {
         frame.players[player].x += dx[dir]
@@ -104,7 +78,7 @@ function updateFrame(frame, input) {
 
     moveBlocks(frame, input.player, input.action)
 
-    console.log(frame.players[input.player]);
+    console.log(frame.players[input.player],"\n");
 }
 
 export function step(frame: any, inputs: any) {
@@ -112,18 +86,3 @@ export function step(frame: any, inputs: any) {
     inputs.forEach(input => updateFrame(frame, input));
     return frame
 }
-
-function main() {
-    addPlayers();
-    addBlocks();
-    console.log(frame.blocks)
-    let inputs = [
-        {player: "elephant", action: "right"},
-        {player: "elephant", action: "right"},
-    ]
-    
-    frame = step(frame, inputs)
-    console.log(frame.blocks)
-}
-
-/* main(); */

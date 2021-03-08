@@ -28,5 +28,5 @@ const inputs =
 
 inputs.forEach(input => frame = step(frame, input))
 
-strict(frame.players.a.x == 3)
-strict(frame.blocks[0].x == 4)
+console.log(frame.players.a.x == 3)
+console.log(frame.blocks[0].x == 4)
