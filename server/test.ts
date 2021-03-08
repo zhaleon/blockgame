@@ -22,4 +22,4 @@ const inputs =
     ]
 
 const newFrame = step(frame, inputs)
-assert(newFrame.players.a.y = 1)
+assert(newFrame.players.a.y = 2)
