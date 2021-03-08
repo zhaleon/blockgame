@@ -1,28 +1,23 @@
-import {simulate} from "./helper";
+import {addPlayer, createFrame, frame, input} from "./helper";
 
-let frame = {
-    width: 5,
-    height: 5,
-    players: {
-        a: {x: 0, y: 0},
-        b: {x: 4, y: 4},
-    },
-    blocks: [
-        {x: 2, y: 2, w: 1, h: 1}
-    ]
-}
-const inputs =
-    [
-        [{player: "a", action: "down"}, {player: "b", action: "up"}],
-        [{player: "a", action: "down"}, {player: "b", action: "up"}],
-        [{player: "a", action: "right"}, {player: "b", action: "left"}],
-    ]
-const lastFrame = simulate(frame, inputs)
+beforeEach(() => {
+    createFrame(5, 5)
+    addPlayer("a", 0, 0)
+    addPlayer("b", 4, 4)
+})
+
 test('single player movement', () => {
-    expect(lastFrame.players.a).toEqual({x: 1, y: 2});
+    input("a_down")
+    input("a_down")
+    input("a_right")
+    expect(frame.players.a).toStrictEqual({x: 1, y: 2});
+
 });
 
 test('multiple player movement', () => {
-    expect(lastFrame.players.a).toStrictEqual({x: 1, y: 2});
-    expect(lastFrame.players.b).toStrictEqual({x: 3, y: 2});
+    input("a_down", "b_up")
+    input("a_down", "b_up")
+    input("a_right", "b_left")
+    expect(frame.players.a).toStrictEqual({x: 1, y: 2});
+    expect(frame.players.b).toStrictEqual({x: 3, y: 2});
 });

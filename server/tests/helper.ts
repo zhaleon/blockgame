@@ -1,12 +1,34 @@
 import {step} from "../main";
 
-export function simulate(inputFrame, inputs) {
-    let frame = inputFrame;
-    inputs.forEach(input => frame = step(frame, input))
+export let frame: any
 
-    Object.values(frame.players).forEach((player:any) => {
+export function createFrame(width, height) {
+    frame = {width, height, blocks: [], players: {}}
+}
+
+export function addPlayer(name, x, y) {
+    frame.players[name] = {x, y}
+}
+
+export function addBlock(x, y, w, h) {
+    frame.blocks.push({x, y, w, h})
+}
+
+export function simulate(inputs) {
+    // inputs.forEach(input => frame = step(frame, input))
+
+    return frame;
+}
+
+export function input(...moves) {
+    const fixed = moves.map(item => {
+        const [player, action] = item.split('_');
+        return {player, action}
+    })
+    frame = step(frame, fixed)
+    Object.values(frame.players).forEach((player: any) => {
         delete player.w;
         delete player.h;
     })
-    return frame;
 }
+

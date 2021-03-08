@@ -1,11 +1,10 @@
 {
   "name": "blockgame",
-  "type": "mo",
   "scripts": {
     "build": "webpack build --mode production",
     "build:dev": "webpack build",
     "dev": "webpack serve",
-    "test": "ts-node-dev server/sandbox.ts"
+    "test": "jest"
   },
   "private": true,
   "dependencies": {

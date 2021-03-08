@@ -1,36 +1,25 @@
-import {simulate} from "./helper";
+import {addBlock, addPlayer, createFrame, frame, input} from "./helper";
 
-let frame = {
-    width: 5,
-    height: 5,
-    players: {
-        a: {x: 0, y: 0},
-    },
-    blocks: [
-        {x: 2, y: 2, w: 1, h: 1}
-    ]
-};
+beforeEach(() => {
+    createFrame(5, 5)
+    addPlayer("a", 0, 0)
+    addPlayer("b", 4, 4)
+    addBlock(3, 2, 1, 1)
+})
 
 test('pushing block', () => {
-
-    const lastFrame = simulate(frame, [
-        [{player: "a", action: "down"}],
-        [{player: "a", action: "down"}],
-        [{player: "a", action: "right"}],
-        [{player: "a", action: "right"}],
-    ])
-    expect(lastFrame.players.a).toEqual({x: 2, y: 2});
-    expect(lastFrame.blocks).toContainEqual({x: 3, y: 2, w: 1, h: 1});
+    input("a_down")
+    input("a_down")
+    input("a_right")
+    expect(frame.players.a).toStrictEqual({x: 1, y: 2});
+    expect(frame.blocks).toContainEqual({x: 3, y: 2, w: 1, h: 1});
 });
-
-
 test('block pushed into wall', () => {
-    const lastFrame = simulate(frame, [
-        [{player: "a", action: "right"}],
-        [{player: "a", action: "right"}],
-        [{player: "a", action: "right"}],
-    ])
-
-    expect(lastFrame.players.a).toEqual({x: 3, y: 2});
-    expect(lastFrame.blocks).toContainEqual({x: 4, y: 2, w: 1, h: 1});
+    input("a_down")
+    input("a_down")
+    input("a_right")
+    input("a_right")
+    input("a_right")
+    expect(frame.players.a).toEqual({x: 3, y: 2});
+    expect(frame.blocks).toContainEqual({x: 4, y: 2, w: 1, h: 1});
 });
