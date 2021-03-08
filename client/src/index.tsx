@@ -61,7 +61,7 @@ const data: [number, number, number, number][] = [
     [6, 2, 1, 1],
     [7, 1, 1, 1]
 ]
-
+let frame;
 class MyComponent extends Component {
     render() {
         return <Board frame={frame}/>

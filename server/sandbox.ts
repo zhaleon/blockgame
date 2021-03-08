@@ -15,7 +15,6 @@ let frame = {
     ]
 }
 
-
 const inputs =
     [
         [{player: "a", action: "down"}, {player: "b", action: "up"}],
