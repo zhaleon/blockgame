@@ -64,7 +64,7 @@ const data: [number, number, number, number][] = [
 
 class MyComponent extends Component {
     render() {
-        return <Board width={8} height={8} data={data}/>
+        return <Board frame={frame}/>
     }
 }
 
