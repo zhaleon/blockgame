@@ -22,7 +22,7 @@ test('multiple player movement', () => {
     expect(frame.players.b).toStrictEqual({x: 3, y: 2});
 });
 test('player pushing idle player', () => {
-    input("a_down", "b_right")
+    input("a_down", "b_left")
     for (let i = 0; i <= 3; i++) input("a_down")
     for (let i = 0; i <= 4; i++) input("a_right")
     expect(frame.players.a).toStrictEqual({x: 3, y: 4});
