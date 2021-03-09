@@ -19,7 +19,7 @@ function intersects(a: any, b: any, dir: number) {
         return a.y == b.y && a.x + a.w == b.x
     } else if (dir == 3) {
         return a.y == b.y && a.x == b.x + b.w
-    } else { console.log("what?") }
+    } else { console.log("direction not in [0,1,2,3]"); throw "bork"; }
 } 
 
 function canMove(frame: any, object: any, dir: number) {
@@ -32,15 +32,46 @@ function canMove(frame: any, object: any, dir: number) {
     return ok && ok_x && ok_y
 }
 
-function moveBlocks(frame: any, player: any, dir: number) {
+function getLastBlock(frame: any, player: string, dir: number) {
+    if (!canMove(frame, frame.players[player], dir)) return null;
+    
+    let lastBlock = frame.players[player] 
+
+    while (true) {
+        let done = true
+        for (let block of frame.blocks) {
+            if (intersects(lastBlock, block, dir)) {
+                done = false
+                lastBlock = block
+            }
+        }
+        if (done) break;
+    }
+
+    return lastBlock
+}
+
+function getFirstBlock(frame: any, player: string, dir: number) {
+    if (!canMove(frame, frame.players[player], dir)) return null;
+
+    for (let block of frame.blocks) {
+        if (intersects(frame.players[player], block, dir)) {
+            return block  
+        } 
+    }
+
+    return null
+}
+
+function moveBlocks(frame: any, player: string, dir: number) {
     if (!canMove(frame, frame.players[player], dir)) return;
 
     let lastBlock = frame.players[player] 
     let movable = true;
-    let reps = 0
+    let reps = 1 
     let toMove = []
 
-    while (++reps < 1000) {
+    while (true) {
         // console.log(reps, "repetitions")
         let done = true;
         let index = 0
@@ -54,9 +85,9 @@ function moveBlocks(frame: any, player: any, dir: number) {
             index++
         }   
         if (done) break;
+        if (reps++ > 1000) throw "inf loop sadge"
     }
 
-    if (reps == 1000) throw "inf loop :sadge:" 
 
     console.log("toMove", toMove, "\nlastBlock", lastBlock)
     if (!canMove(frame, lastBlock, dir)) toMove = [], movable = false;
