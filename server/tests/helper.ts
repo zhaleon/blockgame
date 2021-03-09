@@ -3,7 +3,7 @@ import {step} from "../main";
 export let frame: any
 
 export function createFrame(width, height) {
-    frame = {width, height, blocks: [], players: {}}
+    frame = {width, height, blocks: {}, players: {}}
 }
 
 export function addPlayer(name, x, y) {
@@ -11,7 +11,8 @@ export function addPlayer(name, x, y) {
 }
 
 export function addBlock(x, y, w, h) {
-    frame.blocks.push({x, y, w, h})
+    const id = Object.keys(frame.blocks).length
+    frame.blocks[id] = {x, y, w, h, id}
 }
 
 
