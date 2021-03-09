@@ -39,7 +39,7 @@ function getLastBlock(frame: any, player: string, dir: number) {
 
     while (true) {
         let done = true
-        for (let block of frame.blocks) {
+        for (const [_, block] of Object.entries(frame.blocks) as any) {
             if (intersects(lastBlock, block, dir)) {
                 done = false
                 lastBlock = block 
@@ -54,7 +54,7 @@ function getLastBlock(frame: any, player: string, dir: number) {
 function getFirstBlock(frame: any, player: string, dir: number) {
     if (!canMove(frame, frame.players[player], dir)) return null;
 
-    for (let block of frame.blocks) { 
+    for (const [_, block] of Object.entries(frame.blocks) as any) {
         if (intersects(frame.players[player], block, dir)) {
             return block.id 
         } 
@@ -74,7 +74,8 @@ function moveBlocks(frame: any, player: string, dir: number) {
     while (true) {
         // console.log(reps, "repetitions")
         let done = true;
-        for (let block of frame.blocks) {
+        /* for (let block of frame.blocks) { */
+        for (const [_, block] of Object.entries(frame.blocks) as any) {
             if (intersects(lastBlock, block, dir)) {
                 done = false
                 lastBlock = block
