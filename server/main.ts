@@ -11,6 +11,7 @@ enum Direction {
 }
 
 function intersects(a: any, b: any, dir: number) {
+    // a is the block getting moved
     if (dir == 0) {
         return a.x == b.x && a.y + a.h == b.y      
     } else if (dir == 1) {
@@ -69,10 +70,8 @@ function moveBlocks(frame: any, player: string, dir: number) {
     let lastBlock = frame.players[player] 
     let playerCanMove = true;
     let toMove = []
-    let reps = 1 
 
     while (true) {
-        // console.log(reps, "repetitions")
         let done = true;
         /* for (let block of frame.blocks) { */
         for (const [_, block] of Object.entries(frame.blocks) as any) {
@@ -84,7 +83,6 @@ function moveBlocks(frame: any, player: string, dir: number) {
             } 
         }   
         if (done) break;
-        if (reps++ > 1000) throw "inf loop sadge"
     }
 
     console.log("toMove", toMove, "\nlastBlock", lastBlock)
