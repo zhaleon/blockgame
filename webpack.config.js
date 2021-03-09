@@ -1,5 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
+const TerserPlugin = require("terser-webpack-plugin");
+
 module.exports = function (env, argv) {
     const mode = argv.mode ?? 'development'
     return {
@@ -24,6 +26,10 @@ module.exports = function (env, argv) {
             ],
         },
         devtool: false,
-        plugins: [new HtmlWebpackPlugin()]
-    }
+        plugins: [new HtmlWebpackPlugin()],
+        optimization: {
+            minimize: true,
+            minimizer: [new TerserPlugin({extractComments: false,}),],
+        },
+    };
 }

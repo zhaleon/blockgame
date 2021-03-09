@@ -16,6 +16,7 @@ export class Border extends Component<{ width: number, height: number, }> {
                 {
                     list(width + 1,
                         i => <line
+                            key={i}
                             x1={i} x2={i}
                             y1={0} y2={height}
                             strokeWidth={0.025} stroke={"rgba(0,0,0,0.2"}/>)
@@ -23,6 +24,7 @@ export class Border extends Component<{ width: number, height: number, }> {
                 {
                     list(height + 1,
                         i => <line
+                            key={i}
                             x1={0} x2={height}
                             y1={i} y2={i}
                             strokeWidth={0.025} stroke={"rgba(0,0,0,0.2"}/>)
