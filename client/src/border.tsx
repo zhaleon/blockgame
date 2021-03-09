@@ -32,7 +32,18 @@ export class Border extends Component<{ width: number, height: number, }> {
             else return
 
         };
-
+        anime({
+            targets: '#timer',
+            width: [0, 10],
+            duration: 100,
+            easing: 'linear',
+            loop: true,
+            loopComplete() {
+                input(...[playerALast, playerBLast].filter(item => item))
+                playerALast = playerBLast = null;
+                compRef.current.setState(frame)
+            }
+        });
     }
 
     render() {
