@@ -10,12 +10,13 @@ expect.extend({
         };
 
     },
-    toBeAt: function (player, x, y) {
-        return shallowSubset(player, {x, y}) ? {
+    toBeAt: function (entity, x, y) {
+        const type = entity.name ? 'Player' : 'Block';
+        return shallowSubset(entity, {x, y}) ? {
             pass: true,
         } : {
             pass: false,
-            message: () => `Player should be at (${x},${y}), not (${player.x}, ${player.y})`,
+            message: () => `${type} should be at (${x},${y}), not (${entity.x}, ${entity.y})`,
         };
 
     },

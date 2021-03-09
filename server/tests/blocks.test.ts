@@ -28,3 +28,22 @@ test('block pushed into wall', () => {
     expect(frame).toHaveBlock(4, 2, 1, 1);
 });
 
+test('player pushing block pushing idle player', () => {
+    input("a_down", "b_left")
+    input("a_right_4")
+    input("a_down")
+    input("a_left")
+    input("a_up")
+    input("a_left")
+    input("a_down_2")
+    input("a_left")
+    input("a_down")
+    input("a_right")
+
+
+    expect(frame.players.a).toBeAt(2, 4);
+    expect(frame.blocks[0]).toBeAt(3, 4);
+    expect(frame.players.b).toBeAt(4, 4);
+
+});
+

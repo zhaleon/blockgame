@@ -4,7 +4,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = function (env, argv) {
     const mode = argv.mode ?? 'development'
-    return {
+    const config = {
         mode,
         output: {
             path: path.resolve(__dirname, "client/dist")
@@ -17,7 +17,7 @@ module.exports = function (env, argv) {
             rules: [
                 {
                     test: /\.tsx?$/,
-                    use: [{loader: 'ts-loader', options: {transpileOnly: true},}]
+                    use: [{loader: 'ts-loader', options: {transpileOnly: true}}]
                 },
                 {
                     test: /\.css$/i,
@@ -27,9 +27,13 @@ module.exports = function (env, argv) {
         },
         devtool: false,
         plugins: [new HtmlWebpackPlugin()],
-        optimization: {
+
+    };
+    if (mode === 'production') {
+        config.optimization = {
             minimize: true,
             minimizer: [new TerserPlugin({extractComments: false,}),],
-        },
-    };
+        }
+    }
+    return config;
 }
