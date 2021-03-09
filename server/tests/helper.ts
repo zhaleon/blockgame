@@ -7,11 +7,10 @@ export function createFrame(width, height) {
 }
 
 export function addPlayer(name, x, y) {
-    frame.players[name] = {x, y}
+    frame.players[name] = {name,x, y}
 }
 
-export function addBlock(x, y, w, h) {
-    const id = Object.keys(frame.blocks).length
+export function addBlock(id, x, y, w, h) {
     frame.blocks[id] = {x, y, w, h, id}
 }
 
@@ -28,3 +27,6 @@ export function input(...moves) {
     })
 }
 
+export function verifyBlock(x, y, w, h) {
+
+}

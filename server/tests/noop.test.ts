@@ -10,15 +10,15 @@ test('players pushing into each other', () => {
     input("a_right", "b_left")
     input("a_right")
     input("a_right", "b_left")
-    expect(frame.players.a).toStrictEqual({x: 2, y: 0});
-    expect(frame.players.b).toStrictEqual({x: 3, y: 0});
+    expect(frame.players.a).toBeAt( 2, 0);
+    expect(frame.players.b).toBeAt( 3, 0);
 
 });
 test('players pushing into same empty spot', () => {
     input("a_right", "b_left")
     input("a_right", "b_left")
     input("a_right", "b_left")
-    expect(frame.players.a).toStrictEqual({x: 1, y: 0});
-    expect(frame.players.b).toStrictEqual({x: 3, y: 0});
+    expect(frame.players.a).toBeAt( 1, 0);
+    expect(frame.players.b).toBeAt( 3, 0);
 
 });
