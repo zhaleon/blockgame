@@ -27,6 +27,3 @@ export function input(...moves) {
     })
 }
 
-export function verifyBlock(x, y, w, h) {
-
-}
