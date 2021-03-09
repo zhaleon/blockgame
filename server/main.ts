@@ -42,21 +42,21 @@ function getLastBlock(frame: any, player: string, dir: number) {
         for (let block of frame.blocks) {
             if (intersects(lastBlock, block, dir)) {
                 done = false
-                lastBlock = block
+                lastBlock = block 
             }
         }
         if (done) break;
     }
 
-    return lastBlock
+    return lastBlock.id
 }
 
 function getFirstBlock(frame: any, player: string, dir: number) {
     if (!canMove(frame, frame.players[player], dir)) return null;
 
-    for (let block of frame.blocks) {
+    for (let block of frame.blocks) { 
         if (intersects(frame.players[player], block, dir)) {
-            return block  
+            return block.id 
         } 
     }
 
@@ -67,33 +67,30 @@ function moveBlocks(frame: any, player: string, dir: number) {
     if (!canMove(frame, frame.players[player], dir)) return;
 
     let lastBlock = frame.players[player] 
-    let movable = true;
-    let reps = 1 
+    let playerCanMove = true;
     let toMove = []
+    let reps = 1 
 
     while (true) {
         // console.log(reps, "repetitions")
         let done = true;
-        let index = 0
         for (let block of frame.blocks) {
             if (intersects(lastBlock, block, dir)) {
                 done = false
                 lastBlock = block
-                toMove.push(index)
+                toMove.push(block.id)
                 break
             } 
-            index++
         }   
         if (done) break;
         if (reps++ > 1000) throw "inf loop sadge"
     }
 
-
     console.log("toMove", toMove, "\nlastBlock", lastBlock)
-    if (!canMove(frame, lastBlock, dir)) toMove = [], movable = false;
+    if (!canMove(frame, lastBlock, dir)) toMove = [], playerCanMove = false;
     console.log("toMove", toMove, "\nlastBlock", lastBlock)
 
-    if (movable) {
+    if (playerCanMove) {
         frame.players[player].x += dx[dir]
         frame.players[player].y += dy[dir]
     }
@@ -107,15 +104,35 @@ function moveBlocks(frame: any, player: string, dir: number) {
 function updateFrame(frame, input) {
     console.log(input.player, "move", input.action);
 
-    input.action = Direction[input.action]    
-
     moveBlocks(frame, input.player, input.action)
 
     console.log(frame.players[input.player],"\n");
 }
 
+function processInput(frame: any, inputs: any) {
+    let toKeep = {}
+    for (let input of inputs) input.action = Direction[input.action]
+    
+    for (let i = 0; i < inputs.length; ++i) {
+        for (let j = i+1; j < inputs.length; ++j) {
+            if (getLastBlock(frame, inputs[i].player, inputs[i].action) == getFirstBlock(frame, inputs[j].player, inputs[j].action) 
+                || getLastBlock(frame, inputs[j].player, inputs[j].action) == getFirstBlock(frame, inputs[i].player, inputs[i].action)) {
+                toKeep[i] = true
+                toKeep[j] = true 
+            }
+        }
+    }
+    
+    let newInput = []
+    for (let i = 0; i < inputs.length; ++i) 
+        if (toKeep[i])
+            newInput.push(inputs[i])  
+    inputs = newInput
+} 
+
 export function step(frame: any, inputs: any) {
     // inputs.forEach(function (input) {});
+    processInput(frame, inputs)
     inputs.forEach(input => updateFrame(frame, input));
     return frame
 }
