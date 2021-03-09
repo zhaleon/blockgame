@@ -22,8 +22,9 @@ test('block pushed into wall', () => {
     input("a_right")
     input("a_right")
     input("a_right")
+    input("a_right")
+    input("a_right")
     expect(frame.players.a).toBeAt(3, 2);
-
     expect(frame).toHaveBlock(4, 2, 1, 1);
 });
 
