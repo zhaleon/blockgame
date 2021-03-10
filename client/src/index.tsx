@@ -1,7 +1,8 @@
 import "./style.css"
 import {Board} from "./board";
-import {Component, createRef, Ref} from "react";
-import {addBlock, addPlayer, createFrame, frame} from "../../server/tests/helper";
+import {Component, createRef} from "react";
+import {frame} from "../../server/tests/helper";
+
 const React = require('react');
 const ReactDOM = require('react-dom');
 let node = document.createElement('div');
@@ -27,6 +28,6 @@ class MyComponent extends Component {
 
 }
 
-export const compRef: Ref<MyComponent> = createRef()
+export const compRef: any = createRef()
 
 ReactDOM.render(<MyComponent ref={compRef}/>, node);

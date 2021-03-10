@@ -1,5 +1,5 @@
 import {step} from "../main";
-import {list} from "../../client/src/utils";
+import {repeat} from "../../client/src/utils";
 
 export let frame: any
 
@@ -17,14 +17,19 @@ export function addBlock(id, x, y, w, h) {
 
 
 export function input(...moves) {
-    const fixed = moves.flatMap(item => {
-        const [player, action, moves] = item.split('_');
-        return list(moves ?? 1, () => ({player, action}))
+    let last = moves[0];
+    let count = last === +last ? moves.shift() : 1;
+    console.log(count)
+
+    repeat(count, () => {
+        const fixed = moves.map(item => {
+            const [player, action] = item.split('_');
+            return {player, action}
+        })
+        return frame = step(frame, fixed);
     })
-    frame = step(frame, fixed)
     Object.values(frame.players).forEach((player: any) => {
         delete player.w;
         delete player.h;
     })
 }
-

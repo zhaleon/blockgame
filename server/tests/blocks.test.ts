@@ -30,16 +30,15 @@ test('block pushed into wall', () => {
 
 test('player pushing block pushing idle player', () => {
     input("a_down", "b_left")
-    input("a_right_4")
+    input(4, "a_right")
     input("a_down")
     input("a_left")
     input("a_up")
     input("a_left")
-    input("a_down_2")
+    input(2, "a_down")
     input("a_left")
     input("a_down")
     input("a_right")
-
 
     expect(frame.players.a).toBeAt(2, 4);
     expect(frame.blocks[0]).toBeAt(3, 4);
