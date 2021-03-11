@@ -1,12 +1,10 @@
-import {addBlock, addPlayer, createFrame, frame, input} from "./tests/helper";
+const frame = new Frame(5, 5);
+const playerA = frame.addPlayer("0", "a", 0, 0);
+const playerB = frame.addPlayer("1", "b", 4, 0);
+console.assert(playerA.id === "0")
+console.assert(playerB.id === "1")
+const blockA = frame.addBlock(3, 2, 1, 1)
+const blockB = frame.addBlock(4, 2, 1, 1)
+console.assert(blockA.id !== blockB.id)
 
-createFrame(5, 5)
-addPlayer("a", 0, 0)
-addPlayer("b", 4, 4)
-addBlock(0, 3, 2, 1, 1)
-input("a_down")
-input("a_down")
-input("a_right")
-input("a_right")
-input("a_right")
-console.log(frame.blocks[0])
+frame.step([{player: "0", action: "right"}, {player: "1", action: "left"}])

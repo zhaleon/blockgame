@@ -13,7 +13,7 @@ enum Direction {
 function intersects(a: any, b: any, dir: number) {
     // a is the block getting moved
     if (dir == 0) {
-        return a.x == b.x && a.y + a.h == b.y      
+        return a.x == b.x && a.y + a.h == b.y
     } else if (dir == 1) {
         return a.x == b.x && a.y == b.y + b.h
     } else if (dir == 2) {
@@ -21,7 +21,7 @@ function intersects(a: any, b: any, dir: number) {
     } else if (dir == 3) {
         return a.y == b.y && a.x == b.x + b.w
     } else { console.log("direction not in [0,1,2,3]"); throw "bork"; }
-} 
+}
 
 function canMove(frame: any, object: any, dir: number) {
     object.w = object.w ?? 1
@@ -35,15 +35,15 @@ function canMove(frame: any, object: any, dir: number) {
 
 function getLastBlock(frame: any, player: string, dir: number) {
     if (!canMove(frame, frame.players[player], dir)) return null;
-    
-    let lastBlock = frame.players[player] 
+
+    let lastBlock = frame.players[player]
 
     while (true) {
         let done = true
         for (const [_, block] of Object.entries(frame.blocks) as any) {
             if (intersects(lastBlock, block, dir)) {
                 done = false
-                lastBlock = block 
+                lastBlock = block
             }
         }
         if (done) break;
@@ -57,8 +57,8 @@ function getFirstBlock(frame: any, player: string, dir: number) {
 
     for (const [_, block] of Object.entries(frame.blocks) as any) {
         if (intersects(frame.players[player], block, dir)) {
-            return block.id 
-        } 
+            return block.id
+        }
     }
 
     return null
@@ -67,7 +67,7 @@ function getFirstBlock(frame: any, player: string, dir: number) {
 function moveBlocks(frame: any, player: string, dir: number) {
     if (!canMove(frame, frame.players[player], dir)) return;
 
-    let lastBlock = frame.players[player] 
+    let lastBlock = frame.players[player]
     let playerCanMove = true;
     let toMove = []
 
@@ -80,8 +80,8 @@ function moveBlocks(frame: any, player: string, dir: number) {
                 lastBlock = block
                 toMove.push(block.id)
                 break
-            } 
-        }   
+            }
+        }
         if (done) break;
     }
 
@@ -111,23 +111,23 @@ function updateFrame(frame, input) {
 function processInput(frame: any, inputs: any) {
     let toKeep = {}
     for (let input of inputs) input.action = Direction[input.action]
-    
+
     for (let i = 0; i < inputs.length; ++i) {
         for (let j = i+1; j < inputs.length; ++j) {
-            if (getLastBlock(frame, inputs[i].player, inputs[i].action) == getFirstBlock(frame, inputs[j].player, inputs[j].action) 
+            if (getLastBlock(frame, inputs[i].player, inputs[i].action) == getFirstBlock(frame, inputs[j].player, inputs[j].action)
                 || getLastBlock(frame, inputs[j].player, inputs[j].action) == getFirstBlock(frame, inputs[i].player, inputs[i].action)) {
                 toKeep[i] = true
-                toKeep[j] = true 
+                toKeep[j] = true
             }
         }
     }
-    
+
     let newInput = []
-    for (let i = 0; i < inputs.length; ++i) 
+    for (let i = 0; i < inputs.length; ++i)
         if (toKeep[i])
-            newInput.push(inputs[i])  
+            newInput.push(inputs[i])
     inputs = newInput
-} 
+}
 
 export function step(frame: any, inputs: any) {
     // inputs.forEach(function (input) {});
