@@ -1,7 +1,7 @@
 const util = require("util");
 expect.extend({
-    toHaveBlock: function (frame, x, y, w, h) {
-        let subset = {x, y, w, h};
+    toHaveBlock: function (frame, x, y, width, height) {
+        let subset = {x, y, width, height};
         return Object.values(frame.blocks).find(block => shallowSubset(block, subset)) ? {
             pass: true,
         } : {

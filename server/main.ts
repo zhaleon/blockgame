@@ -13,22 +13,22 @@ enum Direction {
 function intersects(a: any, b: any, dir: number) {
     // a is the block getting moved
     if (dir == 0) {
-        return a.x == b.x && a.y + a.h == b.y
+        return a.x == b.x && a.y + a.height == b.y
     } else if (dir == 1) {
-        return a.x == b.x && a.y == b.y + b.h
+        return a.x == b.x && a.y == b.y + b.height
     } else if (dir == 2) {
-        return a.y == b.y && a.x + a.w == b.x
+        return a.y == b.y && a.x + a.width == b.x
     } else if (dir == 3) {
-        return a.y == b.y && a.x == b.x + b.w
-    } else { console.log("direction not in [0,1,2,3]"); throw "bork"; }
+        return a.y == b.y && a.x == b.x + b.width
+    } else {  throw "bork direction not in [0,1,2,3]"; }
 }
 
 function canMove(frame: any, object: any, dir: number) {
-    object.w = object.w ?? 1
-    object.h = object.h ?? 1
-    let ok = (dir < 2) ? object.w  == 1 : object.h == 1;
-    let ok_x = object.x + dx[dir] + object.w <= frame.width && object.x + dx[dir] >= 0
-    let ok_y = object.y + dy[dir] + object.h <= frame.height && object.y + dy[dir] >= 0
+    object.width = object.width ?? 1
+    object.height = object.height ?? 1
+    let ok = (dir < 2) ? object.width  == 1 : object.height == 1;
+    let ok_x = object.x + dx[dir] + object.width <= frame.width && object.x + dx[dir] >= 0
+    let ok_y = object.y + dy[dir] + object.height <= frame.height && object.y + dy[dir] >= 0
 
     return ok && ok_x && ok_y
 }

@@ -4,8 +4,13 @@ import {Component} from "react";
 
 const React = require('react');
 const ReactDOM = require('react-dom');
+document.body.style.margin = '0'
 let root = document.createElement('div');
+root.style.height = "100vmin"
+root.style.width = "100vmin"
+root.style.margin = "auto"
 document.body.appendChild(root)
+
 let playerALast;
 let playerBLast;
 reset()
@@ -23,10 +28,10 @@ class App extends Component<{}, { frame }> {
             else if (e.key == 'ArrowDown') playerBLast = 'b_down';
             else if (e.key == 'ArrowLeft') playerBLast = 'b_left';
             else if (e.key == 'ArrowRight') playerBLast = 'b_right';
+            if (e.key == 'r') reset()
             input(...[playerALast, playerBLast].filter(item => item))
             playerALast = playerBLast = null;
             this.setState(frame)
-            if (e.key == 'r') reset()
         };
 
     }

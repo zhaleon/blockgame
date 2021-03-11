@@ -11,8 +11,8 @@ export function addPlayer(name, x, y) {
     frame.players[name] = {name, x, y}
 }
 
-export function addBlock(id, x, y, w, h) {
-    frame.blocks[id] = {x, y, w, h, id}
+export function addBlock(id, x, y, width, height) {
+    frame.blocks[id] = {x, y,  width,  height, id}
 }
 
 
@@ -29,7 +29,7 @@ export function input(...moves) {
         return frame = step(frame, fixed);
     })
     Object.values(frame.players).forEach((player: any) => {
-        delete player.w;
-        delete player.h;
+        delete player.width;
+        delete player.height;
     })
 }
