@@ -1,14 +1,8 @@
-import React, {Component, createRef} from "react";
+import React, {Component} from "react";
 import {list} from "./utils";
 
 
 export class Border extends Component<{ width: number, height: number, }> {
-    ref: any = createRef()
-
-    componentDidMount() {
-
-
-    }
 
     render() {
         const {width, height} = this.props
