@@ -44,10 +44,19 @@ class App extends Component<{}, { frame }> {
 
 function reset() {
     playerALast = playerBLast = null;
-    createFrame(5, 5)
+    createFrame(8, 8)
     addPlayer("a", 0, 0)
-    addPlayer("b", 4, 4)
-    addBlock(0, 3, 2, 1, 1)
+    addPlayer("b", 7, 7)
+    addBlock(1,1,0,3,1)
+    addBlock(2,2,1,1,2)
+    addBlock(3,5,0,1,2)
+    addBlock(4,3,3,3,3)
+    addBlock(5,0,6,1,1)
+    addBlock(6,1,7,3,1)
+    addBlock(7,7,5,1,2)
+    addBlock(8,6,2,1,1)
+    addBlock(9,7,1,1,1)
+    addBlock(10,0,2,2,2)
 
 }
 
