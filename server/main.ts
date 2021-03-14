@@ -17,9 +17,9 @@ function intersects(a: any, b: any, dir: number) {
     } else if (dir == 1) {
         return (a.x >= b.x && a.x < b.x + b.w) && a.y == b.y + b.height
     } else if (dir == 2) {
-        return (a.y == b.y) && a.x + a.width == b.x
+        return (a.y >= b.y && a.y < b.y + b.h) && a.x + a.width == b.x
     } else if (dir == 3) {
-        return a.y == b.y && a.x == b.x + b.width
+        return (a.y >= b.y && a.y < b.y + b.h) && a.x == b.x + b.width
     } else { throw "bork direction not in [0,1,2,3]"; }
 }
 
