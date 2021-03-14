@@ -26,7 +26,8 @@ function intersects(a: any, b: any, dir: number) {
 function canMove(frame: any, object: any, dir: number) {
     object.width = object.width ?? 1
     object.height = object.height ?? 1
-    let ok = (dir < 2) ? object.width  == 1 : object.height == 1;
+    let ok = (dir < 2) ? object.width == 1 : object.height == 1;
+    ok = true;
     let ok_x = object.x + dx[dir] + object.width <= frame.width && object.x + dx[dir] >= 0
     let ok_y = object.y + dy[dir] + object.height <= frame.height && object.y + dy[dir] >= 0
 
