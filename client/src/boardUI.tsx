@@ -4,7 +4,7 @@ import {Player} from "./player";
 import {Block} from "./block";
 import {Rec} from "./utils";
 
-export class Board extends Component<{ frame: { blocks: Rec<{ id: string, x: number, y: number, w: number, h: number }>, width, height, players } }> {
+export class BoardUI extends Component<{ frame: { blocks: Rec<{ id: string, x: number, y: number, w: number, h: number }>, width, height, players } }> {
 
 
     render() {
