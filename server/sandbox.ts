@@ -6,5 +6,6 @@ console.assert(playerB.id === "1")
 const blockA = frame.addBlock(3, 2, 1, 1)
 const blockB = frame.addBlock(4, 2, 1, 1)
 console.assert(blockA.id !== blockB.id)
-
-frame.step([{player: "0", action: "right"}, {player: "1", action: "left"}])
+playerA.input = [1, 0]
+playerB.input = [-1, 0]
+frame.step(1)
