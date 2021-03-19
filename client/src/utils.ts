@@ -13,6 +13,14 @@ export function repeat(times, func: (index) => void) {
 
 export type Rec<T> = Record<string, T>
 
-export class Comp<T=any> extends Component<T,any>{
+export class Comp<T = any> extends Component<T, any> {
+
+}
+
+export function map<T, K, R>(map: Map<T, K>, func: (K) => R): R[] {
+    let arr = Array(map.size)
+
+    for (let value of map.values()) arr.push(func(value))
+    return arr
 
 }
