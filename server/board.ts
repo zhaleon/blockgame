@@ -1,6 +1,7 @@
 import Block from "./block"
 import Player from "./player"
 import Tile from "./tile"
+import * as constants from "./constants"
 
 export default class Board {
     width: number
@@ -30,8 +31,8 @@ export default class Board {
 
     update(dT: number) {
         for (const [, player] of this.players) {
-            player.x += player.input[0] * dT
-            player.y += player.input[1] * dT
+            player.x += constants.playerSpeed * player.input[0] * dT
+            player.y += constants.playerSpeed * player.input[1] * dT
         }
     }
 }
