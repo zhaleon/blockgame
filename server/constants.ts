@@ -1,2 +1,2 @@
 export const playerSpeed = 1
-export const x = 3
+export const eps = 1e-9
