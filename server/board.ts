@@ -1,4 +1,3 @@
-import { type, Schema, MapSchema } from "@colyseus/schema"
 import Block from "./block"
 import Player from "./player"
 import Tile from "./tile"
@@ -25,13 +24,12 @@ export default class Board {
     }
 
     addBlock(x: number, y: number, width: number, height: number) {
-        // this.blocks[Board.numBlocks.toString()] = new Block(x,y,width,height,Board.numBlocks.toString());
         this.blocks.set(Board.numBlocks.toString(), new Block(Board.numBlocks.toString(),x,y,width,height))
         return this.blocks.get((Board.numBlocks++).toString())
     }
 
     update(dT: number) {
-        for (const [_, player] of this.players) {
+        for (const [, player] of this.players) {
             player.x += player.input[0] * dT
             player.y += player.input[1] * dT
         }
