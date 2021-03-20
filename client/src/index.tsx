@@ -36,15 +36,21 @@ function App() {
 
 }
 
+let keys: any = {}
 document.onkeydown = ({key}) => {
-    if (key == "w") playerA = [0, -1]
-    else if (key == "a") playerA = [-1, 0]
-    else if (key == "s") playerA = [0, 1]
-    else if (key == "d") playerA = [1, 0]
-    if (key == "ArrowUp") playerB = [0, -1]
-    else if (key == "ArrowLeft") playerB = [-1, 0]
-    else if (key == "ArrowDown") playerB = [0, 1]
-    else if (key == "ArrowRight") playerB = [1, 0]
+    keys[key] = true
+    updateInputs()
+}
+document.onkeyup = ({key}) => {
+    keys[key] = false
+    updateInputs()
+}
+
+function updateInputs() {
+    playerA[0] = keys.a ? -1 : keys.d ? 1 : 0;
+    playerA[1] = keys.w ? -1 : keys.s ? 1 : 0;
+    playerB[0] = keys.ArrowLeft ? -1 : keys.ArrowRight ? 1 : 0;
+    playerB[1] = keys.ArrowUp ? -1 : keys.ArrowDown ? 1 : 0;
 }
 
 function reset() {
@@ -61,7 +67,6 @@ function reset() {
     board.addBlock(6, 2, 1, 1)
     board.addBlock(7, 1, 1, 1)
     board.addBlock(0, 2, 2, 2)
-    window["board"] = board
     return board
 }
 
