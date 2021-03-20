@@ -31,7 +31,7 @@ export default class Board {
     }
 
     step(dT: number) {
-        for (const [_, player] of Object.entries(this.players) as any) {
+        for (const [_, player] of this.players) { 
             player.x += player.input[0] * dT 
             player.y += player.input[1] * dT 
         }
