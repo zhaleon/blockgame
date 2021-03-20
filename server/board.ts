@@ -30,7 +30,7 @@ export default class Board {
         return this.blocks.get((Board.numBlocks++).toString())
     }
 
-    step(dT: number) {
+    update(dT: number) {
         for (const [_, player] of this.players) {
             player.x += player.input[0] * dT
             player.y += player.input[1] * dT
