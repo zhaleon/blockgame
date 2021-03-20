@@ -1,0 +1,3 @@
+- [ ] Block Collisions
+- [ ] Normalize player speed when magnitude more than 1?
+- [ ] ??
