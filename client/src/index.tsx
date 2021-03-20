@@ -1,5 +1,6 @@
 import {BoardUI} from "./boardUI";
 import {useState} from "react";
+import Board from "../../server/board";
 // import {Board} from "../../server/board"
 
 const React = require('react');
@@ -13,37 +14,39 @@ document.body.appendChild(root)
 
 let playerALast;
 let playerBLast;
-let fake_board = {
-    blocks: new Map([
-        ["0", {id: "0", x: 1, y: 2, width: 1, height: 2}]
-    ]),
-    players: new Map([
-        ["a", {id: "a", x: 0, y: 0, name: "a"}]
-    ]),
-
-    tiles: new Map([
-        ["0", {type: "destination", id: "a", x: 0, y: 0, player: "0"}]
-    ]),
-    width: 5,
-    height: 5
-};
-// console.log(JSON.stringify(fake_board, replacer, 2))
-
-function replacer(key, value) {
-    if (value instanceof Map) {
-        return Array.from(value.entries()); // or with spread: value: [...value]
-    } else {
-        return value;
-    }
-}
+// let fake_board = {
+//     blocks: new Map([
+//         ["0", {id: "0", x: 1, y: 2, width: 1, height: 2}]
+//     ]),
+//     players: new Map([
+//         ["a", {id: "a", x: 0, y: 0, name: "a"}]
+//     ]),
+//
+//     tiles: new Map([
+//         ["0", {type: "destination", id: "a", x: 0, y: 0, player: "0"}]
+//     ]),
+//     width: 5,
+//     height: 5
+// };
 
 export type entity = { id: string, x: number, y: number, width?: number, height?: number }
 
 // reset()
+function getBoard() {
 
+    const board = new Board(5, 5);
+    const playerA = board.addPlayer("0", "a", 0, 0);
+    const playerB = board.addPlayer("1", "b", 4, 0);
+    const blockA = board.addBlock(3, 2, 1, 1)
+    const blockB = board.addBlock(4, 2, 1, 1)
+    playerA.input = [1, 0]
+    playerB.input = [-1, 0]
+    return board
+
+}
 
 function App() {
-    let [board, setBoard] = useState(fake_board)
+    let [board, setBoard] = useState(getBoard())
 
     if (!board) return null
     return <BoardUI frame={board}/>
