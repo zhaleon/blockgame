@@ -3,9 +3,9 @@ import {Border} from "./border";
 import {Player} from "./player";
 import {Block} from "./block";
 import {map} from "./utils";
-import {entity} from "./index";
+import Entity from "../../server/entity";
 
-export function BoardUI({frame}: { frame: { blocks: Map<string, entity>, width, height, players: Map<string, entity> } }) {
+export function BoardUI({frame}: { frame: { blocks: Map<string, Entity>, width, height, players: Map<string, Entity> } }) {
 
     const {blocks, players, width, height} = frame;
     return <svg viewBox={`-1 -1 ${width + 2} ${height + 2}`}>
