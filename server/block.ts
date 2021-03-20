@@ -1,17 +1,13 @@
-export class Block {
+import Entity from "./entity"
+
+export default class Block extends Entity {
     x: number
     y: number
     width: number
     height: number
-    id: number
+    id: string 
 
     constructor(x,y,width,height,id) {
-        // this.accel = 0
-        // this.velo = 0
-        this.x = x
-        this.y = y
-        this.width = width
-        this.height = height
-        this.id = id
+        super(x,y,id,width,height)
     }
 }
