@@ -10,5 +10,6 @@ export default class Player extends Entity {
     constructor(id, username, x, y) {
         super(id,x,y)
         this.username = username 
+        this.input = [0, 0]
     }
 }
