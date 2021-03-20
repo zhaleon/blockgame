@@ -7,7 +7,7 @@ export default abstract class Entity extends Schema {
     height: number
     id: string
      
-    constructor(x: number, y: number, id: string, width: number = 1, height: number = 1) {
+    constructor(id: string, x: number, y: number, width: number = 1, height: number = 1) {
         super()
         this.x = x
         this.y = y

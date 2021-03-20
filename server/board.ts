@@ -1,15 +1,16 @@
+import { type, Schema, MapSchema } from "@colyseus/schema"
 import Block from "./block"
 import Player from "./player"
 import Tile from "./tile"
 
-export class Board {
+export default class Board {
     width: number
     height: number
     blocks: Map<string, Block> 
     players: Map<string, Player>
     tiles: Map<string, Tile>
 
-    static num_blocks = 0
+    static numBlocks = 0
 
     constructor(width: number, height: number) {
         this.width = width
@@ -19,13 +20,14 @@ export class Board {
     }
 
     addPlayer(id: string, username: string, x: number, y: number) {
-        this.players[id] = new Player(id,username,x,y)
-        return this.players[id]
+        this.players.set(id, new Player(id,username,x,y))
+        return this.players.get(id)
     }
 
     addBlock(x: number, y: number, width: number, height: number) {
-        this.blocks[Board.num_blocks.toString()] = new Block(x,y,width,height,Board.num_blocks.toString()); 
-        return this.blocks[(Board.num_blocks++).toString()]
+        // this.blocks[Board.numBlocks.toString()] = new Block(x,y,width,height,Board.numBlocks.toString()); 
+        this.blocks.set(Board.numBlocks.toString(), new Block(Board.numBlocks.toString(),x,y,width,height))
+        return this.blocks.get((Board.numBlocks++).toString())
     }
 
     step(dT: number) {

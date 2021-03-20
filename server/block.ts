@@ -8,6 +8,6 @@ export default class Block extends Entity {
     id: string 
 
     constructor(x,y,width,height,id) {
-        super(x,y,id,width,height)
+        super(id,x,y,width,height)
     }
 }

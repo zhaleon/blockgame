@@ -8,7 +8,7 @@ export default class Player extends Entity {
     input: number[]
 
     constructor(id, username, x, y) {
-        super(x,y,id)
+        super(id,x,y)
         this.username = username 
     }
 }

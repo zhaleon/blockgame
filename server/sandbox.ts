@@ -1,4 +1,4 @@
-import { Board } from "./board";
+import Board from "./board";
 
 const board = new Board(5, 5);
 const playerA = board.addPlayer("0", "a", 0, 0);

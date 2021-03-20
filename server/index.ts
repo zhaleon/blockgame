@@ -1,4 +1,4 @@
-import { Block } from "./block"
+import Block from "./block"
 
 const dx = [0,0,1,-1]
 const dy = [1,-1,0,0]
