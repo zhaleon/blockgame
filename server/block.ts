@@ -7,7 +7,7 @@ export default class Block extends Entity {
     height: number
     id: string 
 
-    constructor(x,y,width,height,id) {
+    constructor(id,x,y,width,height) {
         super(id,x,y,width,height)
     }
 }
