@@ -18,12 +18,12 @@ export default class Board {
         this.players = new Map<string, Player>()
     }
 
-    addPlayer(id: string, username: string, x: number, y: number) {
+    addPlayer(id: string, username: string, x: number, y: number) : Player {
         this.players.set(id, new Player(id,username,x,y))
         return this.players.get(id)
     }
 
-    addBlock(x: number, y: number, width: number, height: number) {
+    addBlock(x: number, y: number, width: number, height: number) : Block {
         this.blocks.set(Board.numBlocks.toString(), new Block(Board.numBlocks.toString(),x,y,width,height))
         return this.blocks.get((Board.numBlocks++).toString())
     }
