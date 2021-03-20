@@ -19,18 +19,18 @@ export default class Board {
         this.players = new Map<string, Player>()
     }
 
-    addPlayer(id: string, username: string, x: number, y: number) {
+    addPlayer(id: string, username: string, x: number, y: number) : Player {
         this.players.set(id, new Player(id,username,x,y))
         return this.players.get(id)
     }
 
-    addBlock(x: number, y: number, width: number, height: number) {
+    addBlock(x: number, y: number, width: number, height: number) : Block {
         // this.blocks[Board.numBlocks.toString()] = new Block(x,y,width,height,Board.numBlocks.toString()); 
         this.blocks.set(Board.numBlocks.toString(), new Block(Board.numBlocks.toString(),x,y,width,height))
         return this.blocks.get((Board.numBlocks++).toString())
     }
 
-    update(dT: number) {
+    update(dT: number) : void {
         for (const [_, player] of this.players) { 
             player.x += player.input[0] * dT 
             player.y += player.input[1] * dT 
