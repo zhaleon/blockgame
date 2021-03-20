@@ -23,9 +23,10 @@ function App() {
                 requestAnimationFrame(loop)
                 let delta = (now - lastTime) / 1000
                 lastTime = now;
-                state.board.step(delta)
+                state.board.update(delta)
                 state.board.players.get("a").input = playerA
-                console.log(state.board.players.get("a").input)
+                state.board.players.get("b").input = playerB
+                // console.log(state.board.players.get("a").input)
                 setState({board: state.board})
             }
             requestAnimationFrame(loop)
@@ -40,6 +41,10 @@ document.onkeydown = ({key}) => {
     else if (key == "a") playerA = [-1, 0]
     else if (key == "s") playerA = [0, 1]
     else if (key == "d") playerA = [1, 0]
+    if (key == "ArrowUp") playerB = [0, -1]
+    else if (key == "ArrowLeft") playerB = [-1, 0]
+    else if (key == "ArrowDown") playerB = [0, 1]
+    else if (key == "ArrowRight") playerB = [1, 0]
 }
 
 function reset() {
