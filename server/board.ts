@@ -32,10 +32,8 @@ export default class Board {
     update(dT: number) {
         for (const [, player] of this.players) {
             let normFactor = Math.max(1, Math.sqrt(player.input[0] * player.input[0] + player.input[1] * player.input[1]))
-            player.input[0] /= normFactor
-            player.input[1] /= normFactor
-            player.x += constants.playerSpeed * player.input[0] * dT
-            player.y += constants.playerSpeed * player.input[1] * dT
+            player.x += constants.playerSpeed * player.input[0] * dT / normFactor
+            player.y += constants.playerSpeed * player.input[1] * dT / normFactor
         }
     }
 }
