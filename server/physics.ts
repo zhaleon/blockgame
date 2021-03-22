@@ -40,13 +40,14 @@ function nextCollision(board: Board) : Block {
 } 
 
 function moveHori(obj: Entity, board: Board, xDisplace: number) { 
+    let eps = .1 
     if (xDisplace < 0) {
-        for (let [, block] of board.blocks) if (block.x + block.width < obj.x && rectIntersect(obj, block)) {
+        for (let [, block] of board.blocks) if (block.x + block.width - eps < obj.x && rectIntersect(obj, block)) {
             block.x += xDisplace
             moveHori(block, board, xDisplace)
         } 
     } else if (xDisplace > 0) { 
-        for (let [, block] of board.blocks) if (block.x > obj.x + obj.width && rectIntersect(obj, block)) {
+        for (let [, block] of board.blocks) if (block.x + eps > obj.x + obj.width && rectIntersect(obj, block)) {
             block.x += xDisplace
             moveHori(block, board, xDisplace)
         } 
@@ -54,13 +55,14 @@ function moveHori(obj: Entity, board: Board, xDisplace: number) {
 }
 
 function moveVert(obj: Entity, board: Board, yDisplace: number) { 
+    let eps = .1 
     if (yDisplace < 0) {
-        for (let [, block] of board.blocks) if (block.y + block.height < obj.y && rectIntersect(obj, block)) {
+        for (let [, block] of board.blocks) if (block.y + block.height - eps < obj.y && rectIntersect(obj, block)) {
             block.y += yDisplace
             moveHori(block, board, yDisplace)
         } 
     } else if (yDisplace > 0) { 
-        for (let [, block] of board.blocks) if (block.y > obj.y + obj.height && rectIntersect(obj, block)) {
+        for (let [, block] of board.blocks) if (block.y + eps > obj.y + obj.height && rectIntersect(obj, block)) {
             block.y += yDisplace
             moveHori(block, board, yDisplace)
         } 
