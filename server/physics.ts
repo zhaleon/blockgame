@@ -40,7 +40,7 @@ function nextCollision(board: Board) : Block {
 } 
 
 function moveHori(obj: Entity, board: Board, xDisplace: number) { 
-    let eps = 1000000 
+    let eps = 1e-1 
     if (xDisplace < 0) {
         for (let [, block] of board.blocks) if (block.x + block.width - eps < obj.x && rectIntersect(obj, block)) {
             block.x += xDisplace
@@ -55,7 +55,7 @@ function moveHori(obj: Entity, board: Board, xDisplace: number) {
 }
 
 function moveVert(obj: Entity, board: Board, yDisplace: number) { 
-    let eps = 1000000
+    let eps = 1e-2
     if (yDisplace < 0) {
         for (let [, block] of board.blocks) if (block.y + block.height - eps < obj.y && rectIntersect(obj, block)) {
             block.y += yDisplace
