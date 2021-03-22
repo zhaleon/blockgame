@@ -14,10 +14,8 @@ async function main() {
 
 }
 
+let board;
 
-const stateChange = state => {
-    console.log(state)
-};
 
 main()
 
@@ -33,20 +31,20 @@ document.body.appendChild(root)
 let playerA = [0, 0]
 let playerB = [0, 0]
 
+let initialState = {board: reset()};
 
 function App() {
-    let [state, setState] = useState({board: reset()})
+    let [state, setState] = useState(initialState)
     useEffect(() => {
             let lastTime = 0
             const loop = (now) => {
                 requestAnimationFrame(loop)
                 let delta = (now - lastTime) / 1000
                 lastTime = now;
-                state.board.update(delta)
-                state.board.players.get("a").input = playerA
-                state.board.players.get("b").input = playerB
-                // console.log(state.board.players.get("a").input)
-                setState({board: state.board})
+                board.update(delta)
+                board.players.get("a").input = playerA
+                board.players.get("b").input = playerB
+                setState({board})
             }
             requestAnimationFrame(loop)
         }, []
@@ -66,6 +64,8 @@ document.onkeyup = ({key}) => {
 }
 
 function updateInputs() {
+    if (keys.r) reset()
+
     playerA[0] = keys.a ? -1 : keys.d ? 1 : 0;
     playerA[1] = keys.w ? -1 : keys.s ? 1 : 0;
     playerB[0] = keys.ArrowLeft ? -1 : keys.ArrowRight ? 1 : 0;
@@ -73,7 +73,7 @@ function updateInputs() {
 }
 
 function reset() {
-    let board = new Board(8, 8);
+    board = new Board(8, 8);
     board.addPlayer("a", "c", 0, 0)
     board.addPlayer("b", "d", 7, 7)
     board.addBlock(1, 0, 3, 1)
