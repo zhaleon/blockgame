@@ -4,8 +4,9 @@ import Block from "./block"
 import * as constants from "./constants"
 
 function rectIntersect(a: Entity, b: Entity) : boolean {
-    return Math.max(a.y+a.height,b.y+b.height) - Math.min(a.y,b.y) <= a.height + b.height - constants.eps
-        && Math.max(a.x+a.width,b.x+b.width) - Math.min(a.x,b.x) <= a.width + b.width - constants.eps 
+    let x = .1
+    return Math.max(a.y+a.height,b.y+b.height) - Math.min(a.y,b.y) <= a.height + b.height + constants.eps + x
+        && Math.max(a.x+a.width,b.x+b.width) - Math.min(a.x,b.x) <= a.width + b.width + constants.eps + x 
 }
 
 function canMove(a: Entity, b: Entity, direction: number) {
@@ -40,7 +41,7 @@ function nextCollision(board: Board) : Block {
 } 
 
 function moveHori(obj: Entity, board: Board, xDisplace: number) { 
-    let eps = .1 
+    let eps = 1000000 
     if (xDisplace < 0) {
         for (let [, block] of board.blocks) if (block.x + block.width - eps < obj.x && rectIntersect(obj, block)) {
             block.x += xDisplace
@@ -55,16 +56,16 @@ function moveHori(obj: Entity, board: Board, xDisplace: number) {
 }
 
 function moveVert(obj: Entity, board: Board, yDisplace: number) { 
-    let eps = .1 
+    let eps = 100000000
     if (yDisplace < 0) {
         for (let [, block] of board.blocks) if (block.y + block.height - eps < obj.y && rectIntersect(obj, block)) {
             block.y += yDisplace
-            moveHori(block, board, yDisplace)
+            moveVert(block, board, yDisplace)
         } 
     } else if (yDisplace > 0) { 
         for (let [, block] of board.blocks) if (block.y + eps > obj.y + obj.height && rectIntersect(obj, block)) {
             block.y += yDisplace
-            moveHori(block, board, yDisplace)
+            moveVert(block, board, yDisplace)
         } 
     }
 }
