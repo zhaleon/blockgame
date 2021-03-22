@@ -1,6 +1,7 @@
 import Block from "./block"
 import Player from "./player"
 import Tile from "./tile"
+import { updateBoard } from "./physics"
 import * as constants from "./constants"
 
 export default class Board {
@@ -29,11 +30,14 @@ export default class Board {
         return this.blocks.get((Board.numBlocks++).toString())
     }
 
-    update(dT: number) {
+    update(dT: number) : this {
+        updateBoard(this, dT)
+        return this
         for (const [, player] of this.players) {
             let normFactor = Math.max(1, Math.sqrt(Math.hypot(player.input[0], player.input[1])))
             player.x += constants.playerSpeed * player.input[0] * dT / normFactor
             player.y += constants.playerSpeed * player.input[1] * dT / normFactor
         }
+        return this
     }
 }
