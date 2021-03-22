@@ -1,7 +1,7 @@
 import {BoardUI} from "./boardUI";
 import Board from "../../server/board";
 import {useEffect, useState} from "react";
-// import {Board} from "../../server/board"
+import Stats from "stats.js"
 import {Client} from "colyseus.js";
 
 async function main() {
@@ -32,20 +32,27 @@ let playerA = [0, 0]
 let playerB = [0, 0]
 
 let initialState = {board: reset()};
+var stats = new Stats();
+stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+document.body.appendChild(stats.dom);
 
 function App() {
     let [state, setState] = useState(initialState)
     useEffect(() => {
-            let lastTime = 0
-            const loop = (now) => {
-                requestAnimationFrame(loop)
-                let delta = (now - lastTime) / 1000
-                lastTime = now;
-                board.update(delta)
-                board.players.get("a").input = playerA
-                board.players.get("b").input = playerB
-                setState({board})
-            }
+        let lastTime = 0
+        const loop = (now) => {
+            stats.begin()
+            let delta = (now - lastTime) / 1000
+            lastTime = now;
+            board.update(delta)
+            console.log(delta)
+            board.players.get("a").input = playerA
+            board.players.get("b").input = playerB
+            setState({board})
+            stats.end()
+            requestAnimationFrame(loop)
+
+        }
             requestAnimationFrame(loop)
         }, []
     )
@@ -65,7 +72,6 @@ document.onkeyup = ({key}) => {
 
 function updateInputs() {
     if (keys.r) reset()
-
     playerA[0] = keys.a ? -1 : keys.d ? 1 : 0;
     playerA[1] = keys.w ? -1 : keys.s ? 1 : 0;
     playerB[0] = keys.ArrowLeft ? -1 : keys.ArrowRight ? 1 : 0;
