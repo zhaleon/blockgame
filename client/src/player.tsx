@@ -12,7 +12,7 @@ export function Player({username, x, y}) {
               textAnchor={"middle"}
               dominantBaseline={"middle"}
               fontSize={0.4}>{username}</text>
-        // </>
+    </>
 }
 
 // </Spring>
