@@ -306,7 +306,7 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@colyseus/schema@^1.0.15":
+"@colyseus/schema@^1.0.15", "@colyseus/schema@^1.0.16":
   version "1.0.16"
   resolved "https://registry.yarnpkg.com/@colyseus/schema/-/schema-1.0.16.tgz#c0c1cb9870bd50b5f12e0fb274bb31d1498430f7"
   integrity sha512-9fMyKplgUvNW7EwxK0q4GzOcmrkoeBPM+IpvPpj8+/3uLKNFOXz1quVHQfBelFy83psYV+CdMR5EuXOVZ/2YKQ==
@@ -1607,12 +1607,12 @@ colorette@^1.2.1:
   resolved "https://registry.yarnpkg.com/colorette/-/colorette-1.2.2.tgz#cbcc79d5e99caea2dbf10eb3a26fd8b3e6acfa94"
   integrity sha512-MKGMzyfeuutC/ZJ1cba9NqcNpfeqMUcYmyF1ZFY6/Cn7CNSAKx6a+s48sqLqyAiZuaP2TcqMhoo+dlwFnVxT9w==
 
-colyseus.js@^0.14.4:
-  version "0.14.4"
-  resolved "https://registry.yarnpkg.com/colyseus.js/-/colyseus.js-0.14.4.tgz#6e00e2d258bc98ed4a65410420588a6c17114194"
-  integrity sha512-AuBj4HkRcqlZF2H+Ujy8HuYI4anYYgpX8r71IhGPCV6rYO4m6y6Cqym6nTwpiqkCsUiB8V2yD3eiokePokL4ug==
+colyseus.js@^0.14.5:
+  version "0.14.5"
+  resolved "https://registry.yarnpkg.com/colyseus.js/-/colyseus.js-0.14.5.tgz#a6d7f30a1f7b9ef2beeb6a33885e8222e1f76938"
+  integrity sha512-jlpvl8i6nHvezTUvNr5YhlZWOf41rGoUaTr0scQ+RXZP21BpZzJkVF0S/15Mved43vWOmwwmtdvybNd/DHQP7Q==
   dependencies:
-    "@colyseus/schema" "^1.0.15"
+    "@colyseus/schema" "^1.0.16"
     httpie "^2.0.0-next.13"
     nanoevents "^5.1.12"
     notepack.io "^2.1.3"

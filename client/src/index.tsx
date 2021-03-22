@@ -2,6 +2,25 @@ import {BoardUI} from "./boardUI";
 import Board from "../../server/board";
 import {useEffect, useState} from "react";
 // import {Board} from "../../server/board"
+import {Client} from "colyseus.js";
+
+async function main() {
+    let client = new Client("ws://localhost:3000");
+
+    const room = await client.joinOrCreate("block", {username: "greenpizza12"});
+    console.log("joined")
+    room.onStateChange(state => console.log(state))
+    room.send("input", {x: 1, y: 0})
+
+}
+
+
+const stateChange = state => {
+    console.log(state)
+};
+
+main()
+
 
 const React = require('react');
 const ReactDOM = require('react-dom');
