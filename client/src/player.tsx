@@ -5,8 +5,8 @@ export function Player({username, x, y}) {
     //     to={data}>
     //     {({x, y}) =>
     return <>
-        <circle
-            cx={x + 0.5} cy={y + 0.5} r={0.4} fill="#0074D9"
+        <rect
+            x={x} y={y} width={1} height={1} r={0.4} fill={"#4fba00"}
             strokeWidth={0.025} stroke={"rgba(0,0,0,0.4)"}/>
         <text x={x + 0.5} y={y + 0.5}
               textAnchor={"middle"}
