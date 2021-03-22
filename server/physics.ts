@@ -4,9 +4,8 @@ import Block from "./block"
 import * as constants from "./constants"
 
 function rectIntersect(a: Entity, b: Entity) : boolean {
-    let x = .1
-    return Math.max(a.y+a.height,b.y+b.height) - Math.min(a.y,b.y) <= a.height + b.height + constants.eps + x
-        && Math.max(a.x+a.width,b.x+b.width) - Math.min(a.x,b.x) <= a.width + b.width + constants.eps + x 
+    return Math.max(a.y+a.height,b.y+b.height) - Math.min(a.y,b.y) <= a.height + b.height + constants.eps 
+        && Math.max(a.x+a.width,b.x+b.width) - Math.min(a.x,b.x) <= a.width + b.width + constants.eps 
 }
 
 function canMove(a: Entity, b: Entity, direction: number) {
@@ -56,7 +55,7 @@ function moveHori(obj: Entity, board: Board, xDisplace: number) {
 }
 
 function moveVert(obj: Entity, board: Board, yDisplace: number) { 
-    let eps = 100000000
+    let eps = 1000000
     if (yDisplace < 0) {
         for (let [, block] of board.blocks) if (block.y + block.height - eps < obj.y && rectIntersect(obj, block)) {
             block.y += yDisplace
