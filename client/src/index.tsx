@@ -45,7 +45,6 @@ function App() {
             let delta = (now - lastTime) / 1000
             lastTime = now;
             board.update(delta)
-            console.log(delta)
             board.players.get("a").input = playerA
             board.players.get("b").input = playerB
             setState({board})
