@@ -1,27 +1,24 @@
 import {BoardUI} from "./boardUI";
 import Board from "../../server/board";
-import {useEffect, useState} from "react";
-import Stats from "stats.js"
-import {Client} from "colyseus.js";
+import React, {useEffect, useState} from "react";
+// import Stats from "stats.js"
 
-async function main() {
-    let client = new Client("ws://localhost:3000");
+import ReactDOM from "react-dom";
 
-    const room = await client.joinOrCreate("block", {username: "greenpizza12"});
-    console.log("joined")
-    room.onStateChange(state => console.log(state))
-    room.send("input", {x: 1, y: 0})
-
-}
+// async function main() {
+//     let client = new Client("ws://localhost:3000");
+//
+//     const room = await client.joinOrCreate("block", {username: "greenpizza12"});
+//     console.log("joined")
+//     room.onStateChange(state => console.log(state))
+//     room.send("input", {x: 1, y: 0})
+//
+// }
 
 let board;
 
 
-main()
-
-
-const React = require('react');
-const ReactDOM = require('react-dom');
+// main()
 document.body.style.margin = '0'
 let root = document.createElement('div');
 root.style.height = "100vmin"
@@ -32,26 +29,26 @@ let playerA = [0, 0]
 let playerB = [0, 0]
 
 let initialState = {board: reset()};
-var stats = new Stats();
-stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
-document.body.appendChild(stats.dom);
+// var stats = new Stats();
+// stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+// document.body.appendChild(stats.dom);
 
 function App() {
     let [state, setState] = useState(initialState)
     useEffect(() => {
-        let lastTime = 0
-        const loop = (now) => {
-            stats.begin()
-            let delta = (now - lastTime) / 1000
-            lastTime = now;
-            board.update(delta)
-            board.players.get("a").input = playerA
-            board.players.get("b").input = playerB
-            setState({board})
-            stats.end()
-            requestAnimationFrame(loop)
+            let lastTime = 0
+            const loop = (now) => {
+                // stats.begin()
+                let delta = (now - lastTime) / 1000
+                lastTime = now;
+                board.update(delta)
+                board.players.get("a").input = playerA
+                board.players.get("b").input = playerB
+                setState({board})
+                // stats.end()
+                requestAnimationFrame(loop)
 
-        }
+            }
             requestAnimationFrame(loop)
         }, []
     )
