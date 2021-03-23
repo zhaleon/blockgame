@@ -14,16 +14,15 @@ module.exports = function (env, argv) {
                 {
                     test: /\.tsx?$/,
                     use: [{loader: 'ts-loader', options: {transpileOnly: true}}]
-                },
-                // {
-                //     test: /\.css$/i,
-                //     use: ["style-loader", "css-loader"],
-                // },
+                }
             ],
         },
         devtool: false,
         plugins: [new HtmlWebpackPlugin()],
-        devServer: {contentBase: path.join(__dirname, 'client')}
+        devServer: {
+            contentBase: path.join(__dirname, 'client'),
+            headers: {'Cross-Origin-Embedder-Policy': 'require-corp', 'Cross-Origin-Opener-Policy': 'same-origin'}
+        }
 
     };
     if (mode === 'production') {
