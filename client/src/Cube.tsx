@@ -1,7 +1,6 @@
 import React, {useRef} from "react";
 
 export function Cube({x, y, width = 1, height = 1, color, strokeColor}) {
-    // This reference will give us direct access to the mesh
     const geom: any = useRef()
     return (
         <mesh
@@ -15,7 +14,6 @@ export function Cube({x, y, width = 1, height = 1, color, strokeColor}) {
 
 function Edges({geometry, strokeColor}) {
     if (geometry.current === undefined) return null;
-
     return (
         <lineSegments>
             <edgesGeometry attach="geometry" args={[geometry.current]}/>
