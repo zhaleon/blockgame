@@ -12,10 +12,10 @@ export function PerFrame({board, setBoard}) {
             document.body.removeChild(stats.dom);
         }
     }, [])
-    return useFrame(state => {
+    return useFrame((state, delta) => {
         stats.begin()
         state.gl.render(state.scene, state.camera)
-        board.update(1)
+        board.update(delta)
         board.players.get("a").input = playerA
         board.players.get("b").input = playerB
         setBoard({board})
