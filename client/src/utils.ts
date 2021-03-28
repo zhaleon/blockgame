@@ -17,10 +17,14 @@ export class Comp<T = any> extends Component<T, any> {
 
 }
 
-export function map<T, K, R>(map: Map<T, K>, func: (K) => R): R[] {
+export function map<T, K, R>(map: Map<T, K>, func: (K, index: number) => R): R[] {
     let arr = Array()
-
-    for (let value of map.values()) arr.push(func(value))
+    let index = 0
+    for (let value of map.values()) arr.push(func(value, index++))
     return arr
 
+}
+
+export function toRadians(num: number) {
+    return (num * Math.PI) / 180
 }

@@ -1,15 +1,13 @@
 import React, {useRef} from "react";
-import {animated, useSpring} from 'react-spring/three'
+import {animated} from 'react-spring/three'
 
-export function Cube({x, y, width = 1, height = 1, color, strokeColor}) {
+
+export function Cube({x, y, width, height, color, strokeColor, vert}) {
     const geom: any = useRef()
-    const props = useSpring({
-        'position-x': x + width / 2,
-        'position-z': y + height / 2,
-        from: {'position-x': 0, 'position-z': 0}
-    })
     return <animated.mesh
-        {...props}
+        position-x={x + width / 2}
+        position-y={vert}
+        position-z={y + height / 2}
         scale={[width, 1, height]}>
         <animated.boxBufferGeometry ref={geom}/>
         <animated.meshStandardMaterial color={color}/>
