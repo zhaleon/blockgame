@@ -11,5 +11,4 @@ console.log("line 10", blockA, blockB)
 console.assert(blockA.id !== blockB.id)
 playerA.input = [1, 0]
 playerB.input = [-1, 0]
-board.update(1)
 console.log(playerA.x)
