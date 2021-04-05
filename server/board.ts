@@ -30,8 +30,8 @@ export default class Board {
         return this.blocks.get((Board.numBlocks++).toString())
     }
 
-    update(player: Player) : this {
-
+    update(player: Player, dir: string) : this {
+        updateBoard(this, player, dir)
         return this;
     }
     // update(dT: number) : this {
