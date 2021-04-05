@@ -4,6 +4,8 @@ import {Cube} from "./Cube";
 import {map} from "./utils";
 import {PerFrame} from "./PerFrame";
 import Board from "../../server/board";
+import {useTrail} from "react-spring/three";
+import {Camera} from "./camera";
 
 let board;
 
@@ -30,22 +32,26 @@ let initialState = {board: reset()};
 
 export function BoardUI() {
     let [state, setState] = useState(initialState)
+    let [count, setCount] = useState(0)
     const {blocks, players, width, height} = state.board;
-    // return <svg viewBox={`-1 -1 ${width + 2} ${height + 2}`}>
-    //     <Border width={width} height={height}/>
-    //     {map(blocks, ({id, ...props}) => <Block key={id} {...props}/>)}
-    //     {map(players, ({id, ...props}) => <Player key={id} {...props}/>)}
-    // </svg>;
+    let trail = useTrail(blocks.size + players.size, {vert: count < 3 ? 9 : 0})
 
-    // return <Canvas camera={{position: [5, 10, 5], zoom: 70}} orthographic={camType}
-    //                onCreated={({camera}) => camera.lookAt(5, 0, 5)}>
-    return <Canvas camera={{position: [3, 6, 10]}}
-                   onCreated={({camera}) => camera.lookAt(4, 0, 5)}>
+    return <Canvas camera={{position: [5, 10, 5], zoom: 70}} orthographic
+                   onCreated={({camera}) => camera.lookAt(5, 0, 5)} onClick={() => {
+        setCount(count + 1);
+    }}>
+
+        <Camera perspective={count != 0 && count != 4}/>
         <ambientLight/>
         <pointLight position={[10, 10, 10]}/>
-        {map(players, ({id, ...props}) => <Cube color={"#ff0"} strokeColor={'#b77c00'} key={id} {...props}/>)}
-        {map(blocks, ({id, ...props}) => <Cube color={'hotpink'} strokeColor={'red'} key={id} {...props}/>)}
-
+        {map(blocks, ({id, ...props}, index) => {
+            return <Cube key={id} color={'hotpink'} strokeColor={'red'}
+                         {...props} {...trail[index]} />;
+        })}
+        {map(players, ({id, ...props}, index) => {
+            return <Cube key={id} color={"#ff0"} strokeColor={'#b77c00'}  {...props}
+                         {...trail[index + blocks.size]}/>;
+        })}
         <gridHelper args={[width, height, 0x888888]} position={[width / 2, -0.5, height / 2]}/>
         <PerFrame board={state.board} setBoard={setState}/>
 

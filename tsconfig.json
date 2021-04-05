@@ -2,7 +2,7 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "module": "commonjs",
-    "target": "es2020",
+    "target": "esnext",
     "jsx": "react",
     "esModuleInterop": true
   },

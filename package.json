@@ -9,6 +9,7 @@
   "private": true,
   "dependencies": {
     "@types/jest": "^26.0.21",
+    "@types/matter-js": "^0.14.11",
     "@types/react": "^17.0.3",
     "@types/stats": "^0.16.30",
     "@types/terser-webpack-plugin": "^5.0.2",
@@ -16,6 +17,8 @@
     "colyseus.js": "^0.14.5",
     "html-webpack-plugin": "^5.3.1",
     "jest": "^26.6.3",
+    "matter-js": "^0.16.1",
+    "poly-decomp": "^0.3.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-spring": "^8.0.27",
