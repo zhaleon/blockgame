@@ -62,6 +62,8 @@ export function updateBoard(board: Board, player: Player, dir: string) {
         }
         if (!ok) break
     }
+    board.players[player.id].x += dx[Direction[dir]]
+    board.players[player.id].y += dy[Direction[dir]]
     toMove.forEach(i => {
         board.blocks[i].x += dx[Direction[dir]] 
         board.blocks[i].y += dy[Direction[dir]]
