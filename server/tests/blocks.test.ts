@@ -1,4 +1,4 @@
-import {addBlock, addPlayer, createFrame, frame, input} from "./helper";
+import {addBlock, addPlayer, createFrame, getBlock, getPlayer, input} from "./helper";
 
 beforeEach(() => {
     createFrame(5, 5)
@@ -13,8 +13,8 @@ test('pushing block', () => {
     input("a_right")
     input("a_right")
     input("a_right")
-    expect(frame.players.a).toBeAt(3, 2);
-    expect(frame).toHaveBlock(4, 2, 1, 1);
+    expect(getPlayer('a')).toBeAt(3, 2);
+    expect(getBlock('0')).toBeAt(4, 2);
 });
 test('block pushed into wall', () => {
     input("a_down")
@@ -24,25 +24,26 @@ test('block pushed into wall', () => {
     input("a_right")
     input("a_right")
     input("a_right")
-    expect(frame.players.a).toBeAt(3, 2);
-    expect(frame).toHaveBlock(4, 2, 1, 1);
+    expect(getPlayer('a')).toBeAt(3, 2);
+    expect(getBlock('0')).toBeAt(3, 2);
 });
-
+//
 test('player pushing block pushing idle player', () => {
-    input("a_down", "b_left")
-    input(4, "a_right")
+    input("a_down")
+    input("b_left")
+    input("a_right", 4)
     input("a_down")
     input("a_left")
     input("a_up")
     input("a_left")
-    input(2, "a_down")
+    input("a_down", 2)
     input("a_left")
     input("a_down")
     input("a_right")
 
-    expect(frame.players.a).toBeAt(2, 4);
-    expect(frame.blocks[0]).toBeAt(3, 4);
-    expect(frame.players.b).toBeAt(4, 4);
+    expect(getPlayer('a')).toBeAt(2, 4);
+    expect(getBlock('0')).toBeAt(3, 4);
+    expect(getPlayer('b')).toBeAt(4, 4);
 
 });
 

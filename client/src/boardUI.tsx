@@ -34,7 +34,7 @@ export function BoardUI() {
     let [state, setState] = useState(initialState)
     let [count, setCount] = useState(0)
     const {blocks, players, width, height} = state.board;
-    let trail = useTrail(blocks.size + players.size, {vert: 0})
+    let trail = useTrail(blocks.size + players.size, {vert: 0, from: {vert: 0}})
     useEffect(() => {
         document.onkeydown = handleInput
         document.onkeyup = handleInput
@@ -55,7 +55,7 @@ export function BoardUI() {
     }, [])
     return <Canvas camera={{position: [5, 10, 5], zoom: 70}} orthographic
                    onCreated={({camera}) => camera.lookAt(5, 0, 5)} onClick={() => {
-        setCount(count + 1);
+        setCount(count /*+ 1*/);
     }}>
 
         <Camera perspective={count % 2}/>

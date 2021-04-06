@@ -2,7 +2,7 @@ const util = require("util");
 expect.extend({
     toHaveBlock: function (frame, x, y, width, height) {
         let subset = {x, y, width, height};
-        return Object.values(frame.blocks).find(block => shallowSubset(block, subset)) ? {
+        return [...frame.blocks.values()].find(block => shallowSubset(block, subset)) ? {
             pass: true,
         } : {
             pass: false,
@@ -23,6 +23,7 @@ expect.extend({
 });
 
 function shallowSubset(set, subset) {
+    console.log(subset)
     return !Object.entries(subset).find(([key, aValue]) => set[key] !== aValue)
 
 }
