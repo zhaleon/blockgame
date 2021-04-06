@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import StatsImpl from "stats.js";
 import {useFrame} from "react-three-fiber";
-import {playerA, playerB} from "./input";
 
 export function PerFrame({board, setBoard}) {
     const [stats] = useState(() => new StatsImpl())
@@ -15,10 +14,6 @@ export function PerFrame({board, setBoard}) {
     return useFrame((state, delta) => {
         stats.begin()
         state.gl.render(state.scene, state.camera)
-        board.update(delta)
-        board.players.get("a").input = playerA
-        board.players.get("b").input = playerB
-        setBoard({board})
         stats.end()
     }, 1)
 }

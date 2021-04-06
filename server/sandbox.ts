@@ -1,14 +1,17 @@
 import Board from "./board";
 
-const board = new Board(5, 5);
-const playerA = board.addPlayer("0", "a", 0, 0);
-const playerB = board.addPlayer("1", "b", 4, 0);
-console.assert(playerA.id === "0")
-console.assert(playerB.id === "1")
-const blockA = board.addBlock(3, 2, 1, 1)
-const blockB = board.addBlock(4, 2, 1, 1)
-console.log("line 10", blockA, blockB)
-console.assert(blockA.id !== blockB.id)
-playerA.input = [1, 0]
-playerB.input = [-1, 0]
-console.log(playerA.x)
+const board = new Board(8, 8);
+let a = board.addPlayer("a", "c", 0, 0)
+board.addPlayer("b", "d", 7, 7)
+board.addBlock(1, 0, 3, 1)
+board.addBlock(2, 1, 1, 2)
+board.addBlock(5, 0, 1, 2)
+board.addBlock(3, 3, 3, 3)
+board.addBlock(0, 6, 1, 1)
+board.addBlock(1, 7, 3, 1)
+board.addBlock(7, 5, 1, 2)
+board.addBlock(6, 2, 1, 1)
+board.addBlock(7, 1, 1, 1)
+board.addBlock(0, 2, 2, 2)
+board.update(a, "down")
+console.log(a.y)

@@ -1,17 +1,17 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Canvas} from "react-three-fiber";
 import {Cube} from "./Cube";
-import {map} from "./utils";
-import {PerFrame} from "./PerFrame";
+import {map, Rec} from "./utils";
 import Board from "../../server/board";
 import {useTrail} from "react-spring/three";
 import {Camera} from "./camera";
 
-let board;
+let board: Board;
+let a
 
 export function reset(): Board {
     board = new Board(8, 8);
-    board.addPlayer("a", "c", 0, 0)
+    a = board.addPlayer("a", "c", 0, 0)
     board.addPlayer("b", "d", 7, 7)
     board.addBlock(1, 0, 3, 1)
     board.addBlock(2, 1, 1, 2)
@@ -34,14 +34,31 @@ export function BoardUI() {
     let [state, setState] = useState(initialState)
     let [count, setCount] = useState(0)
     const {blocks, players, width, height} = state.board;
-    let trail = useTrail(blocks.size + players.size, {vert: count < 3 ? 9 : 0})
+    let trail = useTrail(blocks.size + players.size, {vert: 0})
+    useEffect(() => {
+        document.onkeydown = handleInput
+        document.onkeyup = handleInput
+        let keys: Rec<boolean> = {}
 
+        function handleInput({type, key}) {
+            keys[key] = type == 'keydown'
+            let dir;
+
+            if (keys.w) dir = "up";
+            else if (keys.a) dir = "left";
+            else if (keys.s) dir = "down";
+            else if (keys.d) dir = "right";
+            else return;
+            setState({board: board.update(a, dir)})
+        }
+
+    }, [])
     return <Canvas camera={{position: [5, 10, 5], zoom: 70}} orthographic
                    onCreated={({camera}) => camera.lookAt(5, 0, 5)} onClick={() => {
         setCount(count + 1);
     }}>
 
-        <Camera perspective={count != 0 && count != 4}/>
+        <Camera perspective={count % 2}/>
         <ambientLight/>
         <pointLight position={[10, 10, 10]}/>
         {map(blocks, ({id, ...props}, index) => {
@@ -53,7 +70,7 @@ export function BoardUI() {
                          {...trail[index + blocks.size]}/>;
         })}
         <gridHelper args={[width, height, 0x888888]} position={[width / 2, -0.5, height / 2]}/>
-        <PerFrame board={state.board} setBoard={setState}/>
+        {/*<PerFrame board={state.board} setBoard={setState}/>*/}
 
     </Canvas>
 
