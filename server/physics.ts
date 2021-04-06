@@ -33,7 +33,7 @@ function adjacent(a: Entity, b: Entity, dir: number) : boolean {
     } 
     return false;
 }
-
+// put willMove and adjacent in block
 function willMove(a: Entity, b: Entity, dir: number) : boolean {
     switch (dir) {
         case 0: {
