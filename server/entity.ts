@@ -1,10 +1,19 @@
 import { type, Schema } from "@colyseus/schema";
 
 export default abstract class Entity extends Schema {
+    @type("number")
     x: number 
+    
+    @type("number")
     y: number 
+    
+    @type("number")
     width: number
+
+    @type("number")
     height: number
+
+    @type("number")
     id: string
      
     willBump(o: Entity, direction: string) : boolean {
