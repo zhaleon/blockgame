@@ -4,7 +4,7 @@ import Player from "./player"
 import Tile from "./tile"
 import { updateBoard } from "./physics"
 
-export default class Board {
+export default class Board extends Schema {
     @type("number") 
     width: number
 
@@ -23,6 +23,7 @@ export default class Board {
     static numBlocks = 0
 
     constructor(width: number, height: number) {
+        super()
         this.width = width
         this.height = height
         this.blocks = new MapSchema<Block>()
