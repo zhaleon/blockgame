@@ -7,11 +7,10 @@ import {useTrail} from "react-spring/three";
 import {Camera} from "./camera";
 import Player from "../../server/player";
 
-let board: Board;
 let a: Player, b: Player
 
 export function reset(): Board {
-    board = new Board(8, 8);
+   let board = new Board(8, 8);
     a = board.addPlayer("a", "c", 0, 0)
     b = board.addPlayer("b", "d", 7, 7)
     board.addBlock(1, 0, 3, 1)
@@ -28,11 +27,8 @@ export function reset(): Board {
 }
 
 
-let initialState = {board: reset()};
-
-
 export function BoardUI() {
-    let [state, setState] = useState(initialState)
+    let [state, setState] = useState({board: reset()})
     let [count, setCount] = useState(0)
     const {blocks, players, width, height} = state.board;
     let trail = useTrail(blocks.size + players.size, {vert: 0, from: {vert: 0}})
