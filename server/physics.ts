@@ -33,7 +33,7 @@ function adjacent(a: Entity, b: Entity, dir: number) : boolean {
     } 
     return false;
 }
-
+// put willMove and adjacent in block
 function willMove(a: Entity, b: Entity, dir: number) : boolean {
     switch (dir) {
         case 0: {
@@ -84,14 +84,13 @@ export function updateBoard(board: Board, player: Player, dir: string) {
                     toMove.push(block.id)
                 } else {
                     console.log(lastBlock ?? player, block)
-                    canMove = false;
+                    canMove = false
                 }
                 break
             }  
         }
         if (!ok || !canMove) break
     }
-    // console.log(player)
     if (canMove) {
         board.players.get(player.id).x += dx[Direction[dir]]
         board.players.get(player.id).y += dy[Direction[dir]]
