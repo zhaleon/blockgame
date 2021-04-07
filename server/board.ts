@@ -23,6 +23,7 @@ export default class Board extends Schema {
     static numBlocks = 0
 
     constructor(width: number, height: number) {
+        super()
         this.width = width
         this.height = height
         this.blocks = new MapSchema<Block>()
