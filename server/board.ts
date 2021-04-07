@@ -4,8 +4,8 @@ import Player from "./player"
 import Tile from "./tile"
 import { updateBoard } from "./physics"
 
-export default class Board {
-    @type("number") 
+export default class Board extends Schema {
+    @type("number")
     width: number
 
     @type("number")
