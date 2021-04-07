@@ -1,7 +1,7 @@
 import Board from "./board";
 
 const board = new Board(8, 8);
-let a = board.addPlayer("a", "c", 0, 0)
+board.addPlayer("a", "c", 0, 0)
 board.addPlayer("b", "d", 7, 7)
 board.addBlock(1, 0, 3, 1)
 board.addBlock(2, 1, 1, 2)
@@ -14,6 +14,4 @@ board.addBlock(6, 2, 1, 1)
 board.addBlock(7, 1, 1, 1)
 board.addBlock(0, 2, 2, 2)
 board.update("a", "down")
-let decoded = new Board(0,0).decode(board.encodeAll())
-
-console.log(decoded)
+console.log(board.toJSON());
