@@ -6,8 +6,8 @@ const dx = [0,0,1,-1]
 const dy = [1,-1,0,0]
 
 enum Direction {
-    up = 1,
     down = 0,
+    up = 1,
     right = 2,
     left = 3,
 }
@@ -88,6 +88,12 @@ export function updateBoard(board: Board, player: Player, dir: string) {
                 }
                 break
             }  
+        }
+        for (const [,oplayer] of board.players) {
+            if (oplayer.id == player.id) continue
+            if (adjacent(lastBlock ?? player, oplayer, Direction[dir])) {
+                 
+            }
         }
         if (!ok || !canMove) break
     }
