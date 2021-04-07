@@ -13,7 +13,7 @@ export default abstract class Entity extends Schema {
     @type("number")
     height: number
 
-    @type("number")
+    @type("string")
     id: string
      
     willBump(o: Entity, direction: string) : boolean {

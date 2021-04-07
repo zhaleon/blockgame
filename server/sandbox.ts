@@ -14,6 +14,6 @@ board.addBlock(6, 2, 1, 1)
 board.addBlock(7, 1, 1, 1)
 board.addBlock(0, 2, 2, 2)
 board.update("a", "down")
-let decoded =new Board(0,0).decode(board.encodeAll())
+let decoded = new Board(0,0).decode(board.encodeAll())
 
 console.log(decoded)
