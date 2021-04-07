@@ -1,38 +1,21 @@
 import Board from "./board"
 import Entity from "./entity";
-import Player from "./player";
 
-const dx = [0,0,1,-1]
-const dy = [1,-1,0,0]
-
-enum Direction {
-    down = 0,
-    up = 1,
-    right = 2,
-    left = 3,
-}
-
-function atBorder(a: Entity, dir: number) : boolean {
-    switch (dir) {
-        case 0: {
-            break
-        } 
-        case 1: {
-            break
-        }
-    }
-    return true
+function findBlock(board: Board, dir: string) {
+    return true 
 }
 
 export function updateBoard(board: Board, id: string, dir: string) {
-    console.log(dir)
-    let toMove = [] 
-    let canMove = true
+    let toMove: Entity[] = [board.players.get(id)] 
     let lastEntity: Entity = board.players.get(id) 
+    let canMove = true
     let reps = 0
-    while (++reps < 10000) {
+    while (true) {
+        if (++reps > 10000) throw "inf loop sadge"
+
         let stillMoving = false
-        for (const [_,block] of board.blocks) {
+
+        for (const block of board.blocks.values()) {
             if (lastEntity.willBump(block, dir)) {
                 if (lastEntity.canMove(block, dir)) {
                     stillMoving = true
@@ -44,7 +27,8 @@ export function updateBoard(board: Board, id: string, dir: string) {
                 break
             }  
         }
-        for (const [_,oplayer] of board.players) {
+
+        for (const oplayer of board.players.values()) {
             if (lastEntity.canMove(oplayer, dir)) {
                 stillMoving = true
                 lastEntity = oplayer
@@ -56,9 +40,6 @@ export function updateBoard(board: Board, id: string, dir: string) {
     }
 
     if (canMove) {
-        board.players.get(id).move(dir)
-        toMove.forEach(entity => {
-            entity.move(dir)
-        })
+        toMove.forEach(entity => entity.move(dir))
     }
 }

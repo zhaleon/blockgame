@@ -1,5 +1,4 @@
 import { type, Schema } from "@colyseus/schema";
-import { Direction, dx, dy } from "./constants"
 
 export default abstract class Entity extends Schema {
     x: number 
@@ -9,7 +8,6 @@ export default abstract class Entity extends Schema {
     id: string
      
     willBump(o: Entity, direction: string) : boolean {
-        let dir = Direction[direction]
         switch (direction) {
             case 'up' :
                 if (this.top == o.bottom && o.left <= this.left && this.right <= o.right) return true 
@@ -27,8 +25,12 @@ export default abstract class Entity extends Schema {
         return false 
     }
 
+    atBorder(direction: string) : boolean {
+        return false
+    }
+
     canMove(o: Entity, direction: string) : boolean {
-        if (!this.willBump(o, direction)) return false
+        if (!this.willBump(o, direction) || o.atBorder(direction)) return false
         switch (direction) {
             case 'up' : return o.width == 1
             case 'down' : return o.width == 1
@@ -42,19 +44,19 @@ export default abstract class Entity extends Schema {
     moveLeft(dx: number = 1) : void { this.x -= dx }
     moveRight(dx: number = 1) : void { this.x += dx }
 
-    move(dir: string) : void {
+    move(dir: string, dist: number = 1) : void {
         switch (dir) {
             case 'up' : 
-                this.moveUp()
+                this.moveUp(dist)
                 break
             case 'down':
-                this.moveDown()
+                this.moveDown(dist)
                 break
             case 'left' :
-                this.moveLeft()
+                this.moveLeft(dist)
                 break
             case 'right' :
-                this.moveRight()
+                this.moveRight(dist)
                 break
         }
     }

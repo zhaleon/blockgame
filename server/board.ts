@@ -1,23 +1,32 @@
+import { type, Schema, MapSchema, ArraySchema } from "@colyseus/schema"
 import Block from "./block"
 import Player from "./player"
 import Tile from "./tile"
 import { updateBoard } from "./physics"
-import * as constants from "./constants"
 
 export default class Board {
+    @type("number") 
     width: number
+
+    @type("number")
     height: number
-    blocks: Map<string, Block>
-    players: Map<string, Player>
-    tiles: Map<string, Tile>
+
+    @type({ map: Block })
+    blocks: MapSchema<Block>
+
+    @type({ map: Player })
+    players: MapSchema<Player>
+
+    @type({ map: Tile })
+    tiles: MapSchema<Tile>
 
     static numBlocks = 0
 
     constructor(width: number, height: number) {
         this.width = width
         this.height = height
-        this.blocks = new Map<string, Block>()
-        this.players = new Map<string, Player>()
+        this.blocks = new MapSchema<Block>()
+        this.players = new MapSchema<Player>()
     }
 
     addPlayer(id: string, username: string, x: number, y: number) : Player {
@@ -30,18 +39,8 @@ export default class Board {
         return this.blocks.get((Board.numBlocks++).toString())
     }
 
-    update(player: Player, dir: string) : this {
-        updateBoard(this, player, dir)
+    update(id: string, dir: string) : this {
+        updateBoard(this, id, dir)
         return this;
     }
-    // update(dT: number) : this {
-    //     updateBoard(this, dT)
-    //     return this
-    //     for (const [, player] of this.players) {
-    //         let normFactor = Math.max(1, Math.sqrt(Math.hypot(player.input[0], player.input[1])))
-    //         player.x += constants.playerSpeed * player.input[0] * dT / normFactor
-    //         player.y += constants.playerSpeed * player.input[1] * dT / normFactor
-    //     }
-    //     return this
-    // }
 }
