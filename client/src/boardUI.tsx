@@ -5,14 +5,15 @@ import {map, Rec} from "./utils";
 import Board from "../../server/board";
 import {useTrail} from "react-spring/three";
 import {Camera} from "./camera";
+import Player from "../../server/player";
 
 let board: Board;
-let a
+let a: Player, b: Player
 
 export function reset(): Board {
     board = new Board(8, 8);
     a = board.addPlayer("a", "c", 0, 0)
-    board.addPlayer("b", "d", 7, 7)
+    b = board.addPlayer("b", "d", 7, 7)
     board.addBlock(1, 0, 3, 1)
     board.addBlock(2, 1, 1, 2)
     board.addBlock(5, 0, 1, 2)
@@ -42,14 +43,20 @@ export function BoardUI() {
 
         function handleInput({type, key}) {
             keys[key] = type == 'keydown'
-            let dir;
-
-            if (keys.w) dir = "up";
-            else if (keys.a) dir = "left";
-            else if (keys.s) dir = "down";
-            else if (keys.d) dir = "right";
-            else return;
-            setState({board: board.update(a, dir)})
+            let aDir, bDir;
+            if (keys.w) aDir = "up";
+            else if (keys.a) aDir = "left";
+            else if (keys.s) aDir = "down";
+            else if (keys.d) aDir = "right";
+            if (keys.ArrowLeft) bDir = "left";
+            else if (keys.ArrowUp) bDir = "up";
+            else if (keys.ArrowDown) bDir = "down";
+            else if (keys.ArrowRight) bDir = "right";
+            setState(({board}) => {
+                if (aDir) board.update(a, aDir)
+                if (bDir) board.update(b, bDir)
+                return {board};
+            })
         }
 
     }, [])
