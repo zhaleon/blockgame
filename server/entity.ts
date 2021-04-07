@@ -18,13 +18,13 @@ export default abstract class Entity extends Schema {
                 if (this.bottom == o.top && o.left <= this.left && this.right <= o.right) return true 
                 break
             case 'right' :
-                if (this.right == o.left && o.bottom <= this.bottom && this.top <= o.top) return true
+                if (this.right == o.left && o.bottom >= this.bottom && this.top >= o.top) return true
                 break
             case 'left' :
-                if (this.left == o.right && o.bottom <= this.bottom && this.top <= o.top) return true
+                if (this.left == o.right && o.bottom >= this.bottom && this.top >= o.top) return true
                 break
         } 
-        return true
+        return false 
     }
 
     canMove(o: Entity, direction: string) : boolean {
@@ -37,9 +37,9 @@ export default abstract class Entity extends Schema {
         }
     }
 
-    moveUp(dy: number = 1) : void { this.y += dy }
+    moveUp(dy: number = 1) : void { this.y -= dy }
     moveDown(dy: number = 1) : void { this.y += dy }
-    moveLeft(dx: number = 1) : void { this.x += dx }
+    moveLeft(dx: number = 1) : void { this.x -= dx }
     moveRight(dx: number = 1) : void { this.x += dx }
 
     move(dir: string) : void {

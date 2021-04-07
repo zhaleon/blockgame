@@ -12,50 +12,6 @@ enum Direction {
     left = 3,
 }
 
-function adjacent(a: Entity, b: Entity, dir: number) : boolean {
-    switch (dir) {
-        case 0: {
-            if (a.y + a.height == b.y && b.x <= a.x && a.x < b.x + b.width) return true;
-            break
-        }
-        case 1: {
-            if (b.y + b.height == a.y && b.x <= a.x && a.x < b.x + b.width) return true;
-            break
-        }
-        case 2: {
-            if (a.x + a.width == b.x && b.y <= a.y && a.y < b.y + b.height) return true; 
-            break
-        }
-        case 3: {
-            if (a.x == b.x + b.width && b.y <= a.y && a.y < b.y + b.height) return true;
-            break
-        }
-    } 
-    return false;
-}
-// put willMove and adjacent in block
-function willMove(a: Entity, b: Entity, dir: number) : boolean {
-    switch (dir) {
-        case 0: {
-            if (a.y + a.height == b.y && b.width == 1 && b.x == a.x) return true   
-            break
-        }
-        case 1: {
-            if (a.y == b.y + b.height && b.width == 1 && b.x == a.x) return true   
-            break
-        }
-        case 2: {
-            if (a.x + a.width == b.x && b.height == 1 && b.y == a.y) return true   
-            break
-        }
-        case 3: {
-            if (a.x == b.x + b.width && b.height == 1 && b.y == a.y) return true   
-            break
-        }
-    } 
-    return false;
-}
-
 function atBorder(a: Entity, dir: number) : boolean {
     switch (dir) {
         case 0: {
@@ -69,40 +25,52 @@ function atBorder(a: Entity, dir: number) : boolean {
 }
 
 export function updateBoard(board: Board, player: Player, dir: string) {
+    console.log(dir)
     let toMove = [] 
     let canMove = true
-    let lastBlock = null 
+    let lastEntity: Entity = board.players.get(player.id) 
     let reps = 0
     while (true) {
-        if (++reps > 100) break
+        if (++reps > 10000) throw "inf loop bork" 
         let ok = false
         for (const [_,block] of board.blocks) {
-            if (adjacent(lastBlock ?? player, block, Direction[dir])) {
-                if (willMove(lastBlock ?? player, block, Direction[dir])) {
+            if (lastEntity.willBump(block, dir)) {
+                if (lastEntity.canMove(block, dir)) {
                     ok = true
-                    lastBlock = block
-                    toMove.push(block.id)
+                    lastEntity = block 
+                    // toMove.push(block.id)
+                    toMove.push(block)
                 } else {
-                    console.log(lastBlock ?? player, block)
+                    console.log(lastEntity ?? player, block)
                     canMove = false
                 }
                 break
             }  
         }
-        for (const [,oplayer] of board.players) {
-            if (oplayer.id == player.id) continue
-            if (adjacent(lastBlock ?? player, oplayer, Direction[dir])) {
-                 
+        for (const [_,oplayer] of board.players) {
+            if (lastEntity.canMove(oplayer, dir)) {
+                ok = true
+                lastEntity = oplayer
+                toMove.push(oplayer)
+                break
             }
         }
+        console.log('test', lastEntity ?? player)
+        // also move the player
         if (!ok || !canMove) break
     }
+
     if (canMove) {
         board.players.get(player.id).x += dx[Direction[dir]]
         board.players.get(player.id).y += dy[Direction[dir]]
+        // console.log(board.players.get(player.id))
+        // for (const [,block] of board.blocks) console.log(block)
         toMove.forEach(i => {
-            board.blocks.get(i).x += dx[Direction[dir]] 
-            board.blocks.get(i).y += dy[Direction[dir]]
+            i.move(dir)
         })
+        // toMove.forEach(i => {
+        //     board.blocks.get(i).x += dx[Direction[dir]] 
+        //     board.blocks.get(i).y += dy[Direction[dir]]
+        // })
     }
 }
