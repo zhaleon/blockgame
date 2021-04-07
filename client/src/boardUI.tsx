@@ -10,7 +10,7 @@ import Player from "../../server/player";
 let a: Player, b: Player
 
 export function reset(): Board {
-   let board = new Board(8, 8);
+    let board = new Board(8, 8);
     a = board.addPlayer("a", "c", 0, 0)
     b = board.addPlayer("b", "d", 7, 7)
     board.addBlock(1, 0, 3, 1)
@@ -49,8 +49,9 @@ export function BoardUI() {
             else if (keys.ArrowDown) bDir = "down";
             else if (keys.ArrowRight) bDir = "right";
             setState(({board}) => {
-                if (aDir) board.update(a, aDir)
-                if (bDir) board.update(b, bDir)
+                if (aDir) board.update('a', aDir)
+                if (bDir) board.update('b', bDir)
+                if (keys.r) board = reset()
                 return {board};
             })
         }
