@@ -14,4 +14,4 @@ board.addBlock(6, 2, 1, 1)
 board.addBlock(7, 1, 1, 1)
 board.addBlock(0, 2, 2, 2)
 board.update("a", "down")
-console.log(board.toJSON());
+console.log(JSON.stringify(board, null, 2));

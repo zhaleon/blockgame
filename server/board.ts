@@ -1,8 +1,8 @@
-import { type, Schema, MapSchema, ArraySchema } from "@colyseus/schema"
+import {MapSchema, Schema, type} from "@colyseus/schema"
 import Block from "./block"
 import Player from "./player"
 import Tile from "./tile"
-import { updateBoard } from "./physics"
+import {updateBoard} from "./physics"
 
 export default class Board extends Schema {
     @type("number")
@@ -21,7 +21,7 @@ export default class Board extends Schema {
     tiles: MapSchema<Tile>
 
     static numBlocks = 0
-
+    x = 3
     constructor(width: number, height: number) {
         super()
         this.width = width
