@@ -1,7 +1,7 @@
 import { Room, Client } from "colyseus"
 import Player from "./player"
 import Board from "./board"
-import * as level from "../levels/1.json"
+import * as level from "../levels/tutorial/1.json"
 
 export class TutorialRoom extends Room {
     onCreate(options: any) {
