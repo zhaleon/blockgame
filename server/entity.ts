@@ -1,16 +1,16 @@
 import { type, Schema } from "@colyseus/schema";
 
 export default abstract class Entity extends Schema {
-    @type("number")
+    @type("int16")
     x: number 
     
-    @type("number")
+    @type("int16")
     y: number 
     
-    @type("number")
+    @type("uint16")
     width: number
 
-    @type("number")
+    @type("uint16")
     height: number
 
     @type("string")

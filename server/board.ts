@@ -5,10 +5,10 @@ import Tile from "./tile"
 import {updateBoard} from "./physics"
 
 export default class Board extends Schema {
-    @type("number")
+    @type("uint16")
     width: number
 
-    @type("number")
+    @type("uint16")
     height: number
 
     @type({ map: Block })
@@ -28,6 +28,10 @@ export default class Board extends Schema {
         this.height = height
         this.blocks = new MapSchema<Block>()
         this.players = new MapSchema<Player>()
+    }
+
+    loadFromJSON(file: string) : void {
+        
     }
 
     addPlayer(id: string, username: string, x: number, y: number) : Player {
