@@ -21,7 +21,6 @@ export default class Board extends Schema {
     tiles: MapSchema<Tile>
 
     static numBlocks = 0
-    x = 3
     constructor(width: number, height: number) {
         super()
         this.width = width
@@ -31,7 +30,7 @@ export default class Board extends Schema {
     }
 
     loadFromJSON(file: string) : void {
-        
+
     }
 
     addPlayer(id: string, username: string, x: number, y: number) : Player {
