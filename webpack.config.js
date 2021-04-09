@@ -2,12 +2,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const TerserPlugin = require("terser-webpack-plugin");
 
-module.exports = function (env, argv) {
-    const mode = argv.mode ?? 'development'
+module.exports = function (_, argv) {
+    const mode = argv?.mode ?? 'development'
     const config = {
         mode,
-        output: {path: path.resolve(__dirname, "client/dist")},
-        entry: path.join(__dirname, "client/src"),
+        entry: path.join(__dirname, "client"),
         resolve: {extensions: [".js", ".ts", ".tsx"]},
         module: {
             rules: [
@@ -26,7 +25,10 @@ module.exports = function (env, argv) {
 
     };
     if (mode === 'production') {
-        config.optimization = {minimize: true, minimizer: [new TerserPlugin({extractComments: false})]}
+        config.optimization = {
+            minimize: true,
+            minimizer: [new TerserPlugin({extractComments:false,terserOptions: {output: {comments: false}}})]
+        }
     }
     return config;
 }

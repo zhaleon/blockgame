@@ -1,4 +1,5 @@
 import {Component} from "react";
+import {MapSchema} from "@colyseus/schema";
 
 export function list<T>(length, func: (index) => T): T[] {
     let arr = []
@@ -17,7 +18,7 @@ export class Comp<T = any> extends Component<T, any> {
 
 }
 
-export function map<T, K, R>(map: Map<T, K>, func: (K, index: number) => R): R[] {
+export function map<K, R>(map: MapSchema<K>, func: (K, index: number) => R): R[] {
     let arr = Array()
     let index = 0
     for (let value of map.values()) arr.push(func(value, index++))
