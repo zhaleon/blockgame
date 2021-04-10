@@ -1,12 +1,15 @@
+import {Configuration} from "webpack";
+import WebpackDevServer from "webpack-dev-server";
+
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const TerserPlugin = require("terser-webpack-plugin");
 
-module.exports = function (_, argv) {
+export default function (_, argv) {
     const mode = argv?.mode ?? 'development'
-    const config = {
+    const config: Configuration&{devServer:WebpackDevServer.Configuration} = {
         mode,
-        entry: path.join(__dirname, "client"),
+        entry: path.join(__dirname, "client/app.tsx"),
         resolve: {extensions: [".js", ".ts", ".tsx"]},
         module: {
             rules: [
@@ -27,7 +30,7 @@ module.exports = function (_, argv) {
     if (mode === 'production') {
         config.optimization = {
             minimize: true,
-            minimizer: [new TerserPlugin({extractComments:false,terserOptions: {output: {comments: false}}})]
+            minimizer: [new TerserPlugin({extractComments: false, terserOptions: {output: {comments: false}}})]
         }
     }
     return config;

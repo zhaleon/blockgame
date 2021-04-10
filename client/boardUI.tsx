@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import Board from "../server/board";
 import {onStateChange, sendInput} from "./coly";
-import {Player} from "./player";
+import {Player} from "./sprites/player";
 import {map, Rec} from "./utils";
-import {Border} from "./border";
-import {Block} from "./block";
+import {Border} from "./sprites/border";
+import {Block} from "./sprites/block";
 
 export function BoardUI() {
     let [state, setState] = useState<Board>(null)
