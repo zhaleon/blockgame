@@ -2,7 +2,7 @@ import {attachFrontend} from "./client";
 import express from "express";
 import {attachBackend} from "./server";
 
-const port = +process.env.port || 8080;
+const port = +process.env.PORT || 8080;
 
 
 async function main() {
