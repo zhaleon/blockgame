@@ -4,7 +4,8 @@ import Board from "../server/board";
 let room: Room<Board>;
 
 export async function initColy() {
-    let client = new Client(`wss://${window.location.host}`);
+    const protocol = location.protocol == 'https:' ? 'wss:' : 'ws:'
+    let client = new Client(`${protocol}//${window.location.host}`);
     room = await client.joinOrCreate("tutorial", {username: "greenpizza12"});
     console.log("joined")
 }

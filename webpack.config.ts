@@ -1,15 +1,20 @@
-import {Configuration} from "webpack";
-import WebpackDevServer from "webpack-dev-server";
+import {Configuration} from 'webpack';
+import 'webpack-dev-server';
+import {join} from 'path';
+import nodeExternals from 'webpack-node-externals';
 
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const path = require('path')
-const TerserPlugin = require("terser-webpack-plugin");
+import HtmlWebpackPlugin from "html-webpack-plugin";
 
-export default function (_, argv) {
-    const mode = argv?.mode ?? 'development'
-    const config: Configuration&{devServer:WebpackDevServer.Configuration} = {
+const TerserPlugin = require('terser-webpack-plugin');
+
+function dir(path: string): string {
+    return join(__dirname, path)
+}
+
+function getBaseConfig(mode): Configuration {
+    let config: Configuration = {
         mode,
-        entry: path.join(__dirname, "client/app.tsx"),
+        devtool: false,
         resolve: {extensions: [".js", ".ts", ".tsx"]},
         module: {
             rules: [
@@ -19,19 +24,48 @@ export default function (_, argv) {
                 }
             ],
         },
-        devtool: false,
-        plugins: [new HtmlWebpackPlugin()],
-        devServer: {
-            contentBase: path.join(__dirname, 'client'),
-            headers: {'Cross-Origin-Embedder-Policy': 'require-corp', 'Cross-Origin-Opener-Policy': 'same-origin'}
-        }
-
     };
+
     if (mode === 'production') {
+        let plugin = new TerserPlugin({
+            extractComments: false,
+            terserOptions: {output: {comments: false}}
+        });
         config.optimization = {
             minimize: true,
-            minimizer: [new TerserPlugin({extractComments: false, terserOptions: {output: {comments: false}}})]
+            minimizer: [plugin]
         }
     }
-    return config;
+    return config
+
+
+}
+
+function getClientConfig(mode): Configuration {
+    return {
+        ...getBaseConfig(mode),
+        entry: dir("client/app.tsx"),
+        output: {path: dir('dist/client')},
+        plugins: [new HtmlWebpackPlugin()],
+        devServer: {contentBase: dir('client'),}
+    };
+}
+
+function getServerConfig(mode): Configuration {
+    return {
+        ...getBaseConfig(mode),
+        entry: dir('index.ts'),
+        output: {filename: 'index.js'},
+
+        target: 'node',
+        externals: [nodeExternals()]
+        // plugins: [new HtmlWebpackPlugin()],
+        // devServer: {contentBase: join(__dirname, 'client'),}
+    };
+}
+
+export default function (_, argv) {
+    const mode = argv.mode ?? 'development'
+
+    return [getClientConfig(mode), getServerConfig(mode)]
 }
