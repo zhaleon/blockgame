@@ -1,4 +1,4 @@
-import {Configuration} from 'webpack';
+import {Configuration, DefinePlugin} from 'webpack';
 import 'webpack-dev-server';
 import {join} from 'path';
 import nodeExternals from 'webpack-node-externals';
@@ -41,14 +41,23 @@ function getBaseConfig(mode): Configuration {
 
 }
 
-function getClientConfig(mode): Configuration {
-    return {
+export function getClientConfig(mode = 'development'): Configuration {
+    let config: Configuration = {
         ...getBaseConfig(mode),
         entry: dir("client/app.tsx"),
         output: {path: dir('dist/client')},
-        plugins: [new HtmlWebpackPlugin()],
+        plugins: [new HtmlWebpackPlugin(),
+            new DefinePlugin({
+                SERVER_HOST: mode == 'production' ? 'window.location.host' : "'localhost:8081'",
+
+            })
+        ],
         devServer: {contentBase: dir('client'),}
     };
+    if (mode == 'production') {
+        config.plugins.push()
+    }
+    return config;
 }
 
 function getServerConfig(mode): Configuration {

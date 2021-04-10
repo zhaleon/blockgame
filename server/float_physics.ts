@@ -3,13 +3,13 @@ import Board from "./board"
 import Block from "./block"
 import * as constants from "./constants"
 
-function rectIntersect(a: Entity, b: Entity) : boolean {
-    return Math.max(a.y+a.height,b.y+b.height) - Math.min(a.y,b.y) <= a.height + b.height + constants.eps
-        && Math.max(a.x+a.width,b.x+b.width) - Math.min(a.x,b.x) <= a.width + b.width + constants.eps
+function rectIntersect(a: Entity, b: Entity): boolean {
+    return Math.max(a.y + a.height, b.y + b.height) - Math.min(a.y, b.y) <= a.height + b.height + constants.eps
+        && Math.max(a.x + a.width, b.x + b.width) - Math.min(a.x, b.x) <= a.width + b.width + constants.eps
 }
 
 function canMove(a: Entity, b: Entity, direction: number) {
-    let sameBoundingBox = rectIntersect(a,b)
+    let sameBoundingBox = rectIntersect(a, b)
     switch (direction) {
         case 0:
             break
@@ -32,7 +32,7 @@ function lastBlock() {
 
 }
 
-function nextCollision(board: Board) : Block {
+function nextCollision(board: Board): Block {
     for (const [, block] of board.blocks) {
 
     }

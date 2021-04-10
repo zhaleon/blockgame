@@ -12,6 +12,7 @@ export function repeat(times, func: (index) => void) {
 
 }
 
+
 export type Rec<T> = Record<string, T>
 
 export class Comp<T = any> extends Component<T, any> {

@@ -1,7 +1,5 @@
-import Block from "./block"
-
-const dx = [0,0,1,-1]
-const dy = [1,-1,0,0]
+const dx = [0, 0, 1, -1]
+const dy = [1, -1, 0, 0]
 
 enum Direction {
     up = 1,
@@ -20,7 +18,9 @@ function intersects(a: any, b: any, dir: number) {
         return a.y == b.y && a.x + a.width == b.x
     } else if (dir == 3) {
         return a.y == b.y && a.x == b.x + b.width
-    } else { throw "bork direction not in [0,1,2,3]"; }
+    } else {
+        throw "bork direction not in [0,1,2,3]";
+    }
 }
 
 function canMove(frame: any, object: any, dir: number) {
@@ -106,7 +106,7 @@ function updateFrame(frame, input) {
 
     moveBlocks(frame, input.player, input.action)
 
-    console.log(frame.players[input.player],"\n");
+    console.log(frame.players[input.player], "\n");
 }
 
 function processInput(frame: any, inputs: any) {
@@ -114,7 +114,7 @@ function processInput(frame: any, inputs: any) {
     for (let input of inputs) input.action = Direction[input.action]
 
     for (let i = 0; i < inputs.length; ++i) {
-        for (let j = i+1; j < inputs.length; ++j) {
+        for (let j = i + 1; j < inputs.length; ++j) {
             if (getLastBlock(frame, inputs[i].player, inputs[i].action) == getFirstBlock(frame, inputs[j].player, inputs[j].action)
                 || getLastBlock(frame, inputs[j].player, inputs[j].action) == getFirstBlock(frame, inputs[i].player, inputs[i].action)) {
                 toKeep[i] = true

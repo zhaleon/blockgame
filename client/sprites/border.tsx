@@ -1,6 +1,7 @@
 import React from "react";
 import {list} from "../utils";
 import {background, border, gridStroke} from "../colors";
+
 export function Border({width, height}) {
     // const {width, height} = this.props
     return (
