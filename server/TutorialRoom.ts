@@ -10,7 +10,7 @@ export class TutorialRoom extends Room {
     }
 
     onJoin(client: Client, options: any) {
-        this.state.addPlayer(client.id, options.username, 0, this.state.height - 1)
+        this.state.addPlayer(client.id, options.username, 2, this.state.height - 1)
     }
 
     onLeave() {

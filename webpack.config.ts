@@ -24,6 +24,7 @@ function getBaseConfig(mode): Configuration {
                 }
             ],
         },
+
     };
 
     if (mode === 'production') {
@@ -42,22 +43,21 @@ function getBaseConfig(mode): Configuration {
 }
 
 export function getClientConfig(mode = 'development'): Configuration {
-    let config: Configuration = {
+    return {
         ...getBaseConfig(mode),
         entry: dir("client/app.tsx"),
         output: {path: dir('dist/client')},
         plugins: [new HtmlWebpackPlugin(),
             new DefinePlugin({
                 SERVER_HOST: mode == 'production' ? 'window.location.host' : "'localhost:8081'",
-
             })
         ],
-        devServer: {contentBase: dir('client'),}
+        devServer: {
+            stats: "minimal",
+            publicPath: '/',
+            contentBase: dir('client')
+        }
     };
-    if (mode == 'production') {
-        config.plugins.push()
-    }
-    return config;
 }
 
 function getServerConfig(mode): Configuration {
