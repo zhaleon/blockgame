@@ -3,14 +3,14 @@ import {getClientConfig} from "./webpack.config";
 import wds from "webpack-dev-server"
 import {Server as HTTPServer} from "http"
 import execa from "execa"
-
+console.log(blue("INFO"))
 let config = getClientConfig();
 const compiler = webpack(config);
 const server = new wds(compiler, config.devServer)
 server.listen(8080)
 
 function blue(msg) {
-    return `\u001b[1m\u001b[34m${msg}\u001b[39m\u001b[22m`
+    return `\x1B[36m${msg}\x1B[0m`
 }
 
 const httpServer: HTTPServer = server["listeningApp"]

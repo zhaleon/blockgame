@@ -1,9 +1,10 @@
-import {Configuration, DefinePlugin} from 'webpack';
+import {Configuration} from 'webpack';
 import 'webpack-dev-server';
 import {join} from 'path';
 import nodeExternals from 'webpack-node-externals';
 
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import FaviconsWebpackPlugin from "favicons-webpack-plugin";
 
 const TerserPlugin = require('terser-webpack-plugin');
 
@@ -14,7 +15,7 @@ function dir(path: string): string {
 function getBaseConfig(mode): Configuration {
     let config: Configuration = {
         mode,
-        devtool: false,
+
         resolve: {extensions: [".js", ".ts", ".tsx"]},
         module: {
             rules: [
@@ -24,17 +25,20 @@ function getBaseConfig(mode): Configuration {
                 }
             ],
         },
+        devtool: false,
+        performance: {
+            hints: false,
+        },
 
     };
 
     if (mode === 'production') {
-        let plugin = new TerserPlugin({
-            extractComments: false,
-            terserOptions: {output: {comments: false}}
-        });
         config.optimization = {
             minimize: true,
-            minimizer: [plugin]
+            minimizer: [new TerserPlugin({
+                extractComments: false,
+                terserOptions: {output: {comments: false}}
+            })]
         }
     }
     return config
@@ -43,14 +47,12 @@ function getBaseConfig(mode): Configuration {
 }
 
 export function getClientConfig(mode = 'development'): Configuration {
-    return {
+    let config: Configuration = {
         ...getBaseConfig(mode),
         entry: dir("client/app.tsx"),
         output: {path: dir('dist/client')},
-        plugins: [new HtmlWebpackPlugin(),
-            new DefinePlugin({
-                SERVER_HOST: mode == 'production' ? 'window.location.host' : "'localhost:8081'",
-            })
+        plugins: [
+            new HtmlWebpackPlugin({favicon: mode == "development" && "logo.png"})
         ],
         devServer: {
             stats: "minimal",
@@ -58,6 +60,10 @@ export function getClientConfig(mode = 'development'): Configuration {
             contentBase: dir('client')
         }
     };
+    if (mode == "production") {
+        config.plugins.push(new FaviconsWebpackPlugin(dir('client/logo.png')));
+    }
+    return config;
 }
 
 function getServerConfig(mode): Configuration {
@@ -65,14 +71,12 @@ function getServerConfig(mode): Configuration {
         ...getBaseConfig(mode),
         entry: dir('index.ts'),
         output: {filename: 'index.js'},
-
         target: 'node',
         externals: [nodeExternals()]
-        // plugins: [new HtmlWebpackPlugin()],
-        // devServer: {contentBase: join(__dirname, 'client'),}
     };
 }
 
+// noinspection JSUnusedGlobalSymbols
 export default function (_, argv) {
     const mode = argv.mode ?? 'development'
 
