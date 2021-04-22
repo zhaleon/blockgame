@@ -1,11 +1,11 @@
 import {Client, Room} from "colyseus"
 import Board from "./board"
-import * as level from "../levels/tutorial/1.json"
 
 export class TutorialRoom extends Room<Board> {
     onCreate(options: any) {
         this.maxClients = 1
         const board = new Board(8, 8);
+        board.addPlayer('a', 'chicken', 0, 0)
         board.addBlock(1, 0, 3, 1)
         board.addBlock(2, 1, 1, 2)
         board.addBlock(5, 0, 1, 2)

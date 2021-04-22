@@ -33,8 +33,7 @@
   },
   "dependencies": {
     "colyseus": "^0.14.13",
-    "favicons": "^6.2.1",
-    "node-static": "^0.7.11"
+    "express": "^4.17.1"
   },
   "jest": {
     "preset": "ts-jest",
