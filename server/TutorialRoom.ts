@@ -8,6 +8,10 @@ export class TutorialRoom extends Room {
         this.maxClients = 1 
         this.setState(new Board(4,4))
         this.state.loadFromJSON(level)
+
+        this.onMessage("input", (client, message) => {
+            this.state.update(message, client.id)
+        })
     }
 
     onJoin(client: Client, options: any) {
