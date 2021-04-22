@@ -1,14 +1,20 @@
 import React, {useEffect, useState} from "react";
-import Board from "../server/board";
 import {onStateChange, sendInput} from "./coly";
 import {Player} from "./sprites/player";
 import {map, Rec} from "./utils";
 import {Border} from "./sprites/border";
 import {Block} from "./sprites/block";
+import Board from "../server/board";
 
 export function BoardUI() {
-    let [state, setState] = useState<Board>(null)
-    useEffect(() => onStateChange(setState), [])
+    let [state, setState] = useState<{ bruh: Board }>({bruh: null})
+    useEffect(() => {
+        onStateChange((state) => {
+            setState({bruh: state})
+            // let data = JSON.parse(JSON.stringify(state));
+            // console.log(data)
+        })
+    }, [])
     useEffect(() => {
         document.onkeydown = handleInput
         document.onkeyup = handleInput
@@ -24,8 +30,9 @@ export function BoardUI() {
             if (aDir) sendInput(aDir)
         }
     })
-    if (!state) return null;
-    const {blocks, players, width, height} = state;
+    if (!state.bruh) return null;
+    const {blocks, players, width, height} = state.bruh;
+
     return <svg viewBox={`-1 -1 ${width + 2} ${height + 2}`}>
         <Border width={width} height={height}/>
         {map(blocks, ({id, ...props}) => <Block key={id} {...props}/>)}
