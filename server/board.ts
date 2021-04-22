@@ -5,22 +5,18 @@ import Tile from "./tile"
 import {updateBoard} from "./physics"
 
 export default class Board extends Schema {
+    static numBlocks = 0
     @type("uint16")
     width: number
-
     @type("uint16")
     height: number
-
-    @type({ map: Block })
+    @type({map: Block})
     blocks: MapSchema<Block>
-
-    @type({ map: Player })
+    @type({map: Player})
     players: MapSchema<Player>
-
-    @type({ map: Tile })
+    @type({map: Tile})
     tiles: MapSchema<Tile>
 
-    static numBlocks = 0
     constructor(width: number, height: number) {
         super()
         this.width = width
@@ -29,21 +25,20 @@ export default class Board extends Schema {
         this.players = new MapSchema<Player>()
     }
 
-    loadFromJSON(file: string) : void {
-
+    loadFromJSON(file: string): void {
     }
 
-    addPlayer(id: string, username: string, x: number, y: number) : Player {
-        this.players.set(id, new Player(id,username,x,y))
+    addPlayer(id: string, username: string, x: number, y: number): Player {
+        this.players.set(id, new Player(id, username, x, y))
         return this.players.get(id)
     }
 
-    addBlock(x: number, y: number, width: number, height: number) : Block {
-        this.blocks.set(Board.numBlocks.toString(), new Block(Board.numBlocks.toString(),x,y,width,height))
+    addBlock(x: number, y: number, width: number, height: number): Block {
+        this.blocks.set(Board.numBlocks.toString(), new Block(Board.numBlocks.toString(), x, y, width, height))
         return this.blocks.get((Board.numBlocks++).toString())
     }
 
-    update(id: string, dir: string) : this {
+    update(id: string, dir: string): this {
         updateBoard(this, id, dir)
         return this;
     }

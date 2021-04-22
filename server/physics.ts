@@ -2,12 +2,12 @@ import Board from "./board"
 import Entity from "./entity";
 
 function findBlock(board: Board, dir: string) {
-    return true 
+    return true
 }
 
 export function updateBoard(board: Board, id: string, dir: string) {
-    let toMove: Entity[] = [board.players.get(id)] 
-    let lastEntity: Entity = board.players.get(id) 
+    let toMove: Entity[] = [board.players.get(id)]
+    let lastEntity: Entity = board.players.get(id)
     let canMove = true
     let reps = 0
     while (true) {
@@ -19,13 +19,13 @@ export function updateBoard(board: Board, id: string, dir: string) {
             if (lastEntity.willBump(block, dir)) {
                 if (lastEntity.canMove(block, dir)) {
                     stillMoving = true
-                    lastEntity = block 
+                    lastEntity = block
                     toMove.push(block)
                 } else {
                     canMove = false
                 }
                 break
-            }  
+            }
         }
 
         for (const oplayer of board.players.values()) {

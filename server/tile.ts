@@ -1,4 +1,4 @@
-import { type, Schema } from "@colyseus/schema"
+import {Schema} from "@colyseus/schema"
 
 export default class Tile extends Schema {
     type: string

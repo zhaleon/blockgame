@@ -10,7 +10,7 @@ test('single player movement', () => {
     input("a_down")
     input("a_down")
     input("a_right")
-    expect(frame.players.a).toBeAt( 1 ,2);
+    expect(frame.players.a).toBeAt(1, 2);
 
 });
 
